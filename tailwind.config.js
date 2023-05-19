@@ -12,7 +12,7 @@ module.exports = {
       },
       colors: {
         'primary-green': '#023430',
-        'secondary-jetstream' : '#CBC1C2'
+        'secondary-jetstream' : 'rgb(193,203,202)'
       }
     },
   },

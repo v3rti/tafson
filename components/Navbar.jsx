@@ -10,7 +10,7 @@ export default function Navbar(){
   return (
     <nav className="w-full bg-primary-green h-16 flex flex-row px-16 gap-16 justify-between">
       <div className="w-8/12 flex flex-row  gap-28">
-        <Image className=""  src="/assets/Logo.svg" width={120} height={62} />
+        <Image src="/assets/Logo.svg" width={120} height={62} />
         <Searchbar />
       </div>
       <AuthButtons />
