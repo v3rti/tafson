@@ -2,6 +2,7 @@ import '@styles/globalStyles.css';
 
 import Navbar from '@components/Navbar';
 import DemoBody from '@components/DemoBody';
+import Musicbar from '@components/Musicbar';
 
 export default function RootLayout({children}){
   return (
@@ -9,8 +10,8 @@ export default function RootLayout({children}){
       <body className="h-screen">
         {/* Navbar */}
         <Navbar />
-        <DemoBody />
-        {children}
+        <DemoBody content={children}/>
+        <Musicbar />
       </body>
     </html>
   )

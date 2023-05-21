@@ -12,6 +12,8 @@
 
 body {
   font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+  background-color: #C1CBCA;
 }
 
 
@@ -25,4 +27,12 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+}
+
+.homeSecondCard {
+  background-image: url('/assets/kudn.png');
+  height: fit-content;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: left;
 }
