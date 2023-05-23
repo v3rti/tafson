@@ -36,3 +36,10 @@ body {
   background-repeat: no-repeat;
   background-position: left;
 }
+
+.todaysHitsCard {
+  background-image: url('/assets/artistoftheweek.png');
+  background-size: 50%;
+  background-repeat: no-repeat;
+  background-position: right;
+}
