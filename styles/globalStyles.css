@@ -43,3 +43,10 @@ body {
   background-repeat: no-repeat;
   background-position: right;
 }
+
+.podcastsCard {
+  background-image: url('/assets/podcasts.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: right;
+}
