@@ -50,3 +50,10 @@ body {
   background-repeat: no-repeat;
   background-position: right;
 }
+
+.activeCardTest {
+  color: #023430 !important;
+  background-color: #C1CBCA !important;
+  padding: 4px 12px 4px 12px;
+  border-radius: 5px;
+}

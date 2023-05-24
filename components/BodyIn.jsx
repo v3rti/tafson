@@ -5,7 +5,7 @@ import Image from 'next/image';
 
 export default function BodyIn(){
   return (
-    <div className='mx-20 my-10 h-2/6'>
+    <div className='mx-20 mt-10 pb-20'>
       {/* Main Cards */}
       <div className="w-full flex flex-row gap-10 h-full text-white">
          {/* Today's Hits Card */}
@@ -38,6 +38,38 @@ export default function BodyIn(){
           Stuff we thought you might like
         </div>
         {/* Recomended Music */}
+        <div className='mt-8 flex gap-10'>
+          <div className="text-primary-green">
+            <Image src="/assets/okjeremy.png" width={250} height={250} />
+            <div className="mt-1 font-semibold text-2xl">OK</div>
+            <div className="-mt-2 font-semibold text-md">Jeremy Zucker</div>
+          </div>
+          <div className="text-primary-green">
+            <Image src="/assets/theweeknd.png" width={250} height={250} />
+            <div className="mt-1 font-semibold text-2xl">Acquainted</div>
+            <div className="-mt-2 font-semibold text-md">The Weeknd</div>
+          </div>
+          <div className="text-primary-green">
+            <Image src="/assets/torylanez.png" width={250} height={250} />
+            <div className="mt-1 font-semibold text-2xl">Midnight’s Interlude</div>
+            <div className="-mt-2 font-semibold text-md">Tory Lanez</div>
+          </div>
+          <div className="text-primary-green">
+            <Image src="/assets/sewerperson.png" width={250} height={250} />
+            <div className="mt-1 font-semibold text-2xl">Next stop, the moon</div>
+            <div className="-mt-2 font-semibold text-md">Sewerperson</div>
+          </div>
+          <div className="text-primary-green">
+            <Image src="/assets/central-cee.png" width={250} height={250} />
+            <div className="mt-1 font-semibold text-2xl">Next stop, the moon</div>
+            <div className="-mt-2 font-semibold text-md">Sewerperson</div>
+          </div>
+          <div className="text-primary-green">
+            <Image src="/assets/theneighbourhood.png" width={250} height={250} />
+            <div className="mt-1 font-semibold text-2xl">Next stop, the moon</div>
+            <div className="-mt-2 font-semibold text-md">Sewerperson</div>
+          </div>
+        </div>
         <div className='mt-8 flex gap-10'>
           <div className="text-primary-green">
             <Image src="/assets/okjeremy.png" width={250} height={250} />
