@@ -6,6 +6,7 @@ import Musicbar from '@components/Musicbar';
 import NavbarIn from '@components/NavbarIn';
 import Footer from '@components/Footer';
 import MyLibrary from '@components/MyLibrary';
+import CreateAccount from '@components/CreateAccount';
 
 import { useState } from 'react';
 import BodyIn from '@components/BodyIn';
@@ -19,12 +20,14 @@ export default function HomePage(){
     setUserLogged(isLogged);
   }
   return (
-    <div>
+    <div className=''>
       {userLogged ? <NavbarIn /> : <NavbarDefault loggedIn={handleUserStatus}/>}
         {userLogged ? <BodyIn /> : <DemoBody /> }
         {/* <Footer /> */}
         {/* <MyLibrary /> */}
         {userLogged ? <Musicbar /> : <div></div>}
+        <Footer />
+        <CreateAccount />
     </div>
   )
 }
