@@ -20,7 +20,7 @@ export default function HomePage(){
     setUserLogged(isLogged);
   }
   return (
-    <div className=''>
+    <div className='relative w-full'>
       {userLogged ? <NavbarIn /> : <NavbarDefault loggedIn={handleUserStatus}/>}
         {userLogged ? <BodyIn /> : <DemoBody /> }
         {/* <Footer /> */}
