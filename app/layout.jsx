@@ -24,10 +24,10 @@ export default function RootLayout({children}){
     <html lang="en">
       <body className="h-screen">
         {userLogged ? <NavbarIn /> : <NavbarDefault loggedIn={handleUserStatus}/>}
-        {/* userLogged ? <BodyIn /> : <DemoBody /> } */}
+        {userLogged ? <BodyIn /> : <DemoBody /> }
         {/* <Footer /> */}
-        <MyLibrary />
-        <Musicbar />
+        {/* <MyLibrary /> */}
+        {userLogged ? <Musicbar /> : <div></div>}
       </body>
     </html>
   )
