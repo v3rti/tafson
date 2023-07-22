@@ -38,7 +38,7 @@ export default function BodyIn(){
           Stuff we thought you might like
         </div>
         {/* Recomended Music */}
-        <div className='mt-8 flex gap-10'>
+        <div className='mt-8 flex gap-10 justify-center'>
           <div className="text-primary-green">
             <Image src="/assets/okjeremy.png" width={250} height={250} />
             <div className="mt-1 font-semibold text-2xl">OK</div>
@@ -70,7 +70,7 @@ export default function BodyIn(){
             <div className="-mt-2 font-semibold text-md">Sewerperson</div>
           </div>
         </div>
-        <div className='mt-8 flex gap-10'>
+        <div className='mt-8 flex gap-10 justify-center'>
           <div className="text-primary-green">
             <Image src="/assets/okjeremy.png" width={250} height={250} />
             <div className="mt-1 font-semibold text-2xl">OK</div>
