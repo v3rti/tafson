@@ -27,7 +27,7 @@ export default function HomePage(){
         {/* <MyLibrary /> */}
         {userLogged ? <Musicbar /> : <div></div>}
         <Footer />
-        <CreateAccount />
+        {/* <CreateAccount /> */}
     </div>
   )
 }

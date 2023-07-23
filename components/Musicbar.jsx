@@ -26,7 +26,7 @@ export default function Musicbar(){
 
 
   return(
-    <div className="flex flex-row items-center justify-between gap-36 px-20 w-full bg-primary-green h-16 bottom-0 fixed">
+    <div className="z-30 flex flex-row items-center justify-between gap-36 px-20 w-full bg-primary-green h-16 bottom-0 fixed">
       <div className="flex flex-row items-center text-white gap-2 ">
         <IoHeadsetOutline className="w-5 h-5" /> Listen Together
         

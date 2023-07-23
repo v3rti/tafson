@@ -2,6 +2,10 @@ import '@styles/globalStyles.css'
 
 import Image from 'next/image';
 
+import {AiFillPlayCircle} from 'react-icons/ai';
+
+import Playlist from './Playlist';
+
 
 export default function BodyIn(){
   return (
@@ -13,7 +17,7 @@ export default function BodyIn(){
           <div className='text-4xl font-semibold'>
             Today's Hits
           </div>
-          <div className='mt-8 text-3xl font-semibold  w-4/6'>
+          <div className='mt-8 text-2xl w-4/6'>
             Stay up-to-date with the latest and greatest in music.
           </div>
           <div className='mt-16 w-4/6  flex flex-row justify-center'>
@@ -25,7 +29,7 @@ export default function BodyIn(){
            <div className='text-4xl font-semibold'>
               Podcasts of the Week
             </div>
-            <div className='mt-8 text-3xl font-semibold w-3/6'>
+            <div className='mt-8 text-2xl w-3/6'>
               Discover the best podcasts of the week with our curated selection of top picks.
             </div>
             <div className='mt-8 w-4/6 ml-16'>
@@ -34,74 +38,60 @@ export default function BodyIn(){
         </div>
       </div>
         {/* Title */ }
-        <div className=' mt-8 font-bold text-primary-green text-3xl'>
+        <div className='mt-8 font-bold text-primary-green text-2xl'>
           Stuff we thought you might like
         </div>
         {/* Recomended Music */}
-        <div className='mt-8 flex gap-10 justify-center'>
+        <div className='mt-4 flex gap-6'>
           <div className="text-primary-green">
-            <Image src="/assets/okjeremy.png" width={250} height={250} />
-            <div className="mt-1 font-semibold text-2xl">OK</div>
-            <div className="-mt-2 font-semibold text-md">Jeremy Zucker</div>
+            <Image src="/assets/okjeremy.png" width={200} height={200} />
+            <div className="mt-1 font-semibold text-lg">OK</div>
+            <div className="-mt-1 font-semibold text-sm">Jeremy Zucker</div>
           </div>
           <div className="text-primary-green">
-            <Image src="/assets/theweeknd.png" width={250} height={250} />
-            <div className="mt-1 font-semibold text-2xl">Acquainted</div>
-            <div className="-mt-2 font-semibold text-md">The Weeknd</div>
+            <Image src="/assets/theweeknd.png" width={200} height={200} />
+            <div className="mt-1 font-semibold text-lg">Acquainted</div>
+            <div className="-mt-1 font-semibold text-sm">The Weeknd</div>
           </div>
           <div className="text-primary-green">
-            <Image src="/assets/torylanez.png" width={250} height={250} />
-            <div className="mt-1 font-semibold text-2xl">Midnight’s Interlude</div>
-            <div className="-mt-2 font-semibold text-md">Tory Lanez</div>
+            <Image src="/assets/torylanez.png" width={200} height={200} />
+            <div className="mt-1 font-semibold text-lg">Midnight’s Interlude</div>
+            <div className="-mt-1 font-semibold text-sm">Tory Lanez</div>
           </div>
           <div className="text-primary-green">
-            <Image src="/assets/sewerperson.png" width={250} height={250} />
-            <div className="mt-1 font-semibold text-2xl">Next stop, the moon</div>
-            <div className="-mt-2 font-semibold text-md">Sewerperson</div>
+            <Image src="/assets/sewerperson.png" width={200} height={200} />
+            <div className="mt-1 font-semibold text-lg">Next stop, the moon</div>
+            <div className="-mt-1 font-semibold text-sm">Sewerperson</div>
           </div>
           <div className="text-primary-green">
-            <Image src="/assets/central-cee.png" width={250} height={250} />
-            <div className="mt-1 font-semibold text-2xl">Next stop, the moon</div>
-            <div className="-mt-2 font-semibold text-md">Sewerperson</div>
+            <Image src="/assets/central-cee.png" width={200} height={200} />
+            <div className="mt-1 font-semibold text-lg">23</div>
+            <div className="-mt-1 font-semibold text-sm">Central Cee</div>
           </div>
           <div className="text-primary-green">
-            <Image src="/assets/theneighbourhood.png" width={250} height={250} />
-            <div className="mt-1 font-semibold text-2xl">Next stop, the moon</div>
-            <div className="-mt-2 font-semibold text-md">Sewerperson</div>
-          </div>
-        </div>
-        <div className='mt-8 flex gap-10 justify-center'>
-          <div className="text-primary-green">
-            <Image src="/assets/okjeremy.png" width={250} height={250} />
-            <div className="mt-1 font-semibold text-2xl">OK</div>
-            <div className="-mt-2 font-semibold text-md">Jeremy Zucker</div>
+            <Image src="/assets/theneighbourhood.png" width={200} height={200} />
+            <div className="mt-1 font-semibold text-lg">Cry Baby</div>
+            <div className="-mt-1 font-semibold text-sm">The Neighbourhood</div>
           </div>
           <div className="text-primary-green">
-            <Image src="/assets/theweeknd.png" width={250} height={250} />
-            <div className="mt-1 font-semibold text-2xl">Acquainted</div>
-            <div className="-mt-2 font-semibold text-md">The Weeknd</div>
+            <Image src="/assets/theneighbourhood.png" width={200} height={200} />
+            <div className="mt-1 font-semibold text-lg">Cry Baby</div>
+            <div className="-mt-1 font-semibold text-sm">The Neighbourhood</div>
           </div>
           <div className="text-primary-green">
-            <Image src="/assets/torylanez.png" width={250} height={250} />
-            <div className="mt-1 font-semibold text-2xl">Midnight’s Interlude</div>
-            <div className="-mt-2 font-semibold text-md">Tory Lanez</div>
-          </div>
-          <div className="text-primary-green">
-            <Image src="/assets/sewerperson.png" width={250} height={250} />
-            <div className="mt-1 font-semibold text-2xl">Next stop, the moon</div>
-            <div className="-mt-2 font-semibold text-md">Sewerperson</div>
-          </div>
-          <div className="text-primary-green">
-            <Image src="/assets/central-cee.png" width={250} height={250} />
-            <div className="mt-1 font-semibold text-2xl">Next stop, the moon</div>
-            <div className="-mt-2 font-semibold text-md">Sewerperson</div>
-          </div>
-          <div className="text-primary-green">
-            <Image src="/assets/theneighbourhood.png" width={250} height={250} />
-            <div className="mt-1 font-semibold text-2xl">Next stop, the moon</div>
-            <div className="-mt-2 font-semibold text-md">Sewerperson</div>
+            <Image src="/assets/theneighbourhood.png" width={200} height={200} />
+            <div className="mt-1 font-semibold text-lg">Cry Baby</div>
+            <div className="-mt-1 font-semibold text-sm">The Neighbourhood</div>
           </div>
         </div>
+        <div className='my-8'>
+          <div className='text-2xl font-semibold mb-4'>Featured Playlists</div>
+          <div className='flex gap-8 flex-wrap justify-center'>
+            <Playlist />
+            <Playlist />
+          </div>
+        </div>
+        <div>Recommended Artists to Follow</div>
     </div>
   )
 }
