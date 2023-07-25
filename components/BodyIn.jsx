@@ -106,6 +106,7 @@ export default function BodyIn(){
             <ArtistsCards imageLink="playboi.png"/>
           </div>
         </div>
+        <audio></audio>
     </div>
   )
 }
