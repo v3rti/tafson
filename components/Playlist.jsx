@@ -6,7 +6,7 @@ import {AiFillPlayCircle} from 'react-icons/ai';
 
 export default function Playlist(){
   return(
-    <div className='bg-primary-green w-5/12 py-8 px-6 rounded-xl flex gap-4'>
+    <div className='bg-primary-green w-7/12 py-8 px-6 rounded-xl flex gap-4'>
               <div className='text-secondary-jetstream flex flex-col gap-6'>
                 <Image src={"/assets/rap_playlist.png"} width={260} height={260}/>
                 <div className='flex flex-col gap-1'>

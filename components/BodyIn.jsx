@@ -5,6 +5,8 @@ import Image from 'next/image';
 import {AiFillPlayCircle} from 'react-icons/ai';
 
 import Playlist from './Playlist';
+import OtherPlaylists from './OtherPlaylists';
+import ArtistsCards from './ArtistsCards';
 
 
 export default function BodyIn(){
@@ -86,12 +88,24 @@ export default function BodyIn(){
         </div>
         <div className='my-8'>
           <div className='text-2xl font-semibold mb-4'>Featured Playlists</div>
-          <div className='flex gap-8 flex-wrap justify-center'>
+          <div className='flex gap-8 flex-wrap '>
             <Playlist />
-            <Playlist />
+            <OtherPlaylists />
+            <OtherPlaylists />
           </div>
         </div>
-        <div>Recommended Artists to Follow</div>
+        <div>
+          <div className='py-4 mt-8 font-bold text-primary-green text-2xl'>
+          Recommended Artists
+          </div>
+          <div className='flex justify-center gap-6'>
+            <ArtistsCards imageLink="kanye.png"/>
+            <ArtistsCards imageLink="tylor.png"/>
+            <ArtistsCards imageLink="draganov.png"/>
+            <ArtistsCards imageLink="jojix.png"/>
+            <ArtistsCards imageLink="playboi.png"/>
+          </div>
+        </div>
     </div>
   )
 }
