@@ -24,13 +24,13 @@ export default function NavbarIn(){
         <Searchbar />
       </div>
       <div className="w-4/12 flex flex-row gap-12 items-center text-white">
-      <Link href="/library"><div className='flex flex-row items-center gap-2 cursor-pointer'><MdLibraryMusic className='w-6 h-6'/>My Library</div></Link>
+        <Link href="/library"><div className='flex flex-row items-center gap-2 cursor-pointer'><MdLibraryMusic className='w-6 h-6'/>My Library</div></Link>
         <div className='flex flex-row items-center gap-2 cursor-pointer'><RiPlayListFill className='w-6 h-6'/>Playlists</div>
         <div className='flex flex-row items-center gap-2 cursor-pointer'><SiYoutubemusic className='w-6 h-6'/>New Releases</div>
         <div className='flex flex-row items-center gap-2 cursor-pointer'><IoMdMicrophone className='w-6 h-6'/>Podcasts</div>
       </div>
       <div className="w-fit flex flex-row gap-12 items-center text-white px-8">
-      <div className='flex flex-row items-center gap-2 cursor-pointer'><RxAvatar className='w-6 h-6'/>Profile</div>
+      <Link href="/profile"><div className='flex flex-row items-center gap-2 cursor-pointer'><RxAvatar className='w-6 h-6'/>Profile</div></Link>
       </div>
     </nav>
   )
