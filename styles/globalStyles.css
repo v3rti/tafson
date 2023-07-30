@@ -78,3 +78,22 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(94, 94, 94, 0.671)
 }
+
+.profileCover {
+  background-image: url("/assets/profileCover.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: right; 
+}
+
+.faded {
+  background-image: linear-gradient(to top, rgba(193, 203, 202, 0.35), rgb(0, 0, 0, 0.01));
+}
+
+.artistCover {
+  background-image: url("/assets/artistCover.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: right;
+  opacity: 35%;
+}

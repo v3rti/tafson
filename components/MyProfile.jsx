@@ -10,15 +10,15 @@ export default function MyProfile(){
   return(
     <div className="mx-20 pt-8 text-primary-green pb-36">
       <div className="flex gap-6 justify-center mb-24">
-        <div className="relative border-primary-green border-2 h-96 p-4 rounded-lg w-8/12">
-          <AiOutlineMore className='absolute w-10 h-10 text-primary-green rotate-90 top-2 right-6 cursor-pointer'/>
+        <div className="relative  h-96 p-4 rounded-lg w-8/12 profileCover ">
+          <AiOutlineMore className='absolute w-10 h-10 text-secondary-jetstream rotate-90 top-2 right-6 cursor-pointer'/>
           <div className='absolute -bottom-16 left-8 flex gap-6'>
-            <Image src="/assets/profilePic.png" className='rounded-full' height={255} width={255}/>
-            <div className='mt-28'>
-              <div className='text-2xl font-semibold'>
+            <Image src="/assets/profilePic.png" className='rounded-full z-20' height={255} width={255}/>
+            <div className='mt-28 z-20'>
+              <div className='text-3xl font-semibold drop-shadow-2xl'>
                 Mob
               </div>
-              <div className='flex gap-3'>
+              <div className='flex gap-3 font-semibold drop-shadow-2xl'>
                 <p>49 Follower</p>
                 <p>108 Following</p>
               </div>
@@ -29,13 +29,29 @@ export default function MyProfile(){
           </div>
     
         </div>
-        <div className="border-primary-green border-2 h-96 px-4 py-6 rounded-lg w-2/12">
-          <div className='flex flex-col gap-6'>
-            <div className='flex gap-1'>Favorite Genre: <p className='font-semibold'>Pop Music</p></div>
-            <span>Favorite Playlist: <p></p></span>
-            <span>Current Favorite Song: <p></p></span>
-            <span>Top Played Artist<p></p></span>
+        <div className='flex flex-col w-2/12 gap-4'>
+          <div className="border-primary-green border-2 h-36 px-4 py-6 rounded-lg bg-primary-green">
+            <div className='flex flex-col gap-6 text-secondary-jetstream'>
+              <div className='flex gap-1'>Favorite Genre: <p className='font-semibold'>Pop Music</p></div>
+              <span>Favorite Playlist: <p></p></span>
+            </div>
           </div>
+          <div className="border-primary-green border-2 h-full px-4 py-6 rounded-lg  bg-primary-green">
+            <div className='flex flex-col gap-6 text-secondary-jetstream'>
+              <div className='flex gap-1 font-semibold text-2xl'>Badges</div>
+              <div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className='px-2 mb-8 w-10/12 mx-auto border-y-4 border-primary-green py-4'>
+        <div className='text-3xl font-semibold pb-2'>
+            Bio / About me
+        </div>
+        <div className='text-lg'>
+          My taste in music is pretty eclectic, ranging from classic rock legends like Led Zeppelin to modern indie vibes of Tame Impala. I'm always on the lookout for fresh beats and undiscovered gems that resonate with my soul.
         </div>
       </div>
       <div className='flex gap-8 justify-center'>
@@ -95,14 +111,18 @@ export default function MyProfile(){
               <div className='flex flex-col justify-between h-full'>
                 <div className=''>
                   <div className='text-2xl font-semibold'>Afraid</div>
-                  <div>The Neighbourhood</div>
-                  <div className='flex gap-1'>Album: <div className='font-semibold'>I Love You.</div></div>
+                  <div>2,711 Likes</div>
+                  <div className='flex gap-1'>By<div className='font-semibold'>vertig0</div></div>
+                </div>
+                <div className=''>
+                  <div className='p-2 bg-primary-green flex gap-2 items-center mx-2 justify-center text-secondary-jetstream rounded-lg'><AiFillHeart className="w-5 h-5" /> Like</div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+     
     </div>
   )
 
