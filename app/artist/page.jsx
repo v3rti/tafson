@@ -11,7 +11,7 @@ export default function Artist(){
         <div className="relative h-72 border-2 border-primary-green rounded-lg ">
           <div className='artistCover h-full'></div>
           <div className='absolute top-1/2 left-6 transform -translate-y-1/2 flex items-center gap-3 z-10'>
-            <Image className="rounded-full" src="/assets/snot.png" width={200} height={200} />
+            <Image className="rounded-full" src="/assets/snot.png" width={195} height={195} />
             <div className='flex flex-col gap-4'>
               <div>
                 <div className='text-3xl font-semibold'>$NOT</div>
@@ -24,17 +24,54 @@ export default function Artist(){
             </div>
           </div>
         </div>
-        <div className='px-2 mb-4 border-y-4 border-primary-green py-4'>
-          <div className='text-3xl font-semibold pb-2'>
-              Biography
+        <div className='flex gap-8'>
+          <div className='px-2 mb-4 border-t-4 border-primary-green py-4 w-7/12 h-fit flex flex-col gap-2'>
+            <div>
+              <div className='text-3xl font-semibold pb-2'>
+                  Biography
+              </div>
+              <div className='text-lg'>
+              Morphing between the alternative rap styles of the late 2010s, Florida-based rapper $NOT employs a relaxed approach to the era's trap sonics. After breaking through in 2018 with his single "Gosha," he signed on with 300 Entertainment for studio albums like - TRAGEDY + and Beautiful Havoc, both released in 2020. A third album, Ethereal, arrived in 2022, heralded by the single "Doja" with A$AP Rocky.
+              </div>
+            </div>
+            <div>
+            <div className='mb-4'>
+            <div className='mb-2 text-3xl font-semibold'>Albums</div>
+            <div className='flex gap-4 flex-wrap'>
+              <div className='flex flex-col gap-2'>
+                <Image src="/assets/tragedy.jpeg" height={195} width={195}/>
+                <div>
+                  <div className='text-lg'>Tragedy</div>
+                  <div className=''>2020</div>
+                </div>
+              </div>
+              <div className='flex flex-col gap-2'>
+                <Image src="/assets/tragedy.jpeg" height={195} width={195}/>
+                <div>
+                  <div className='text-lg'>Tragedy</div>
+                  <div className=''>2020</div>
+                </div>
+              </div>
+              <div className='flex flex-col gap-2'>
+                <Image src="/assets/tragedy.jpeg" height={195} width={195}/>
+                <div>
+                  <div className='text-lg'>Tragedy</div>
+                  <div className=''>2020</div>
+                </div>
+              </div>
+              <div className='flex flex-col gap-2'>
+                <Image src="/assets/tragedy.jpeg" height={195} width={195}/>
+                <div>
+                  <div className='text-lg'>Tragedy</div>
+                  <div className=''>2020</div>
+                </div>
+              </div>
+            </div>
+            </div>
+            </div>
           </div>
-          <div className='text-lg'>
-          Morphing between the alternative rap styles of the late 2010s, Florida-based rapper $NOT employs a relaxed approach to the era's trap sonics. After breaking through in 2018 with his single "Gosha," he signed on with 300 Entertainment for studio albums like - TRAGEDY + and Beautiful Havoc, both released in 2020. A third album, Ethereal, arrived in 2022, heralded by the single "Doja" with A$AP Rocky.
-          </div>
-        </div>
-        <div className='flex justify-between'>
-          <div className='w-5/12'>
-            <div className='mb-4 text-3xl font-semibold'>Most Played</div>
+          <div className='w-4/12 border-t-4 border-primary-green px-2 mb-4 py-4'>
+            <div className='text-3xl font-semibold pb-4'>Most Played</div>
             <div className='flex flex-col gap-2'>
               <div className='flex gap-2 border-4 border-primary-green px-6 py-2 justify-between items-center rounded-xl'>
                 <div>01</div>
@@ -73,40 +110,10 @@ export default function Artist(){
               </div>
             </div>
           </div>
-          <div className='w-5/12 mb-4'>
-            <div className='mb-4 text-3xl font-semibold'>Albums</div>
-            <div className='flex gap-4 flex-wrap'>
-              <div className='flex flex-col gap-2'>
-                <Image src="/assets/easterpink.jpeg" height={180} width={180}/>
-                <div>
-                  <div className='text-lg'>Easter Pink</div>
-                  <div className=''>2023</div>
-                </div>
-              </div>
-              <div className='flex flex-col gap-2'>
-                <Image src="/assets/easterpink.jpeg" height={180} width={180}/>
-                <div>
-                  <div className='text-lg'>Easter Pink</div>
-                  <div className=''>2023</div>
-                </div>
-              </div>
-              <div className='flex flex-col gap-2'>
-                <Image src="/assets/easterpink.jpeg" height={180} width={180}/>
-                <div>
-                  <div className='text-lg'>Easter Pink</div>
-                  <div className=''>2023</div>
-                </div>
-              </div>
-              <div className='flex flex-col gap-2'>
-                <Image src="/assets/easterpink.jpeg" height={180} width={180}/>
-                <div>
-                  <div className='text-lg'>Easter Pink</div>
-                  <div className=''>2023</div>
-                </div>
-              </div>
-
-            </div>
-          </div>
+        </div>
+        <div className='flex justify-between'>
+          <div>Music used to be here</div>
+          
         </div>
       </div>
     </div>
