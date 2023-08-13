@@ -1,6 +1,8 @@
 import Image from 'next/image';
 import '@styles/globalStyles.css';
 
+import ArtistsCards from '@components/ArtistsCards';
+
 import { AiFillPlayCircle } from 'react-icons/ai';
 
 
@@ -111,9 +113,15 @@ export default function Artist(){
             </div>
           </div>
         </div>
-        <div className='flex justify-between'>
-          <div>Music used to be here</div>
-          
+        <div className=''>
+          <div className='text-3xl font-semibold pb-4'>Similar Artists</div>
+          <div className='flex gap-6'>
+            <ArtistsCards imageLink="kanye.png"/>
+            <ArtistsCards imageLink="tylor.png"/>
+            <ArtistsCards imageLink="draganov.png"/>
+            <ArtistsCards imageLink="jojix.png"/>
+            <ArtistsCards imageLink="playboi.png"/>
+          </div>
         </div>
       </div>
     </div>

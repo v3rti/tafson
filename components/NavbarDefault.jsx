@@ -24,10 +24,10 @@ export default function NavbarDefault({loggedIn}){
 
   return (
     
-    <nav className="w-full bg-primary-green h-16 flex flex-row px-16 justify-between">
+    <nav className="w-full bg-primary-green h-12 flex flex-row px-16 justify-between">
       {/* not logged in */}
       <div className="w-8/12 flex flex-row  gap-28">
-        <Image src="/assets/Logo.svg" width={120} height={62} />
+        <Image src="/assets/Logo.svg" width={80} height={56} />
         <Searchbar />
       </div>
       <div className="flex flex-row items-center cursor-pointer" onClick={sendStatustoparent}><AuthButtons /></div>

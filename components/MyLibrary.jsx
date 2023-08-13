@@ -11,23 +11,22 @@ export default function MyLibrary(){
   return(
     <div className='mx-20 mt-10 pb-20'>
       {/* Vertical Cards */}
-      <div className='w-full text-white flex flex-col items-center gap-12'>
+      <div className='w-full text-white flex flex-col items-center gap-12 mb-16'>
         <div className='w-6/12 px-8 py-4 bg-primary-green flex flex-row justify-between gap-2 rounded-lg'>
-          <div className="flex items-center font-md text-xl activeCardTest"><IoMdHeart className="w-7 h-8 mr-2" />Liked</div>
-          <div className="flex items-center font-md text-xl"><RiPlayListFill className="w-7 h-8 mr-2" />My Playlists</div>
-          <div className="flex items-center font-md text-xl"><RiHistoryFill className="w-7 h-8 mr-2" />Recently Played</div>
-          <div className="flex items-center font-md text-xl"><BsPersonHearts className="w-7 h-8 mr-2" />Made For You</div>
+          <div className="flex items-center font-md activeCardTest"><IoMdHeart className="w-5 h-5 mr-2" />Liked</div>
+          <div className="flex items-center font-md "><RiPlayListFill className="w-5 h-5 mr-2" />My Playlists</div>
+          <div className="flex items-center font-md "><RiHistoryFill className="w-5 h-5 mr-2" />Recently Played</div>
+          <div className="flex items-center font-md "><BsPersonHearts className="w-5 h-5 mr-2" />Made For You</div>
         </div>
       </div>
       {/* Selected Card Content */}
       <div className="mt-5">
         {/* Example: Liked songs */}
-        <div className='text-primary-green font-semibold mb-6 ml-6 text-xl flex gap-2 items-center'>
-          <AiFillInfoCircle className='w-7 h-7'/>
-          <div className=''>You have liked a total of 11 song</div>
-        </div>
-        
-        <div className='flex flex-col gap-2 text-primary-green'>
+        <div className='flex flex-col gap-2 text-primary-green mx-48'>
+          <div className='text-primary-green font-semibold mb-6 ml-6 text-xl flex gap-2 items-center'>
+            <AiFillInfoCircle className='w-7 h-7'/>
+            <div className=''>You have liked a total of 11 song</div>
+          </div>
           <div className="flex flex-row justify-between items-center font-semibold">
             <div className="flex gap-2 w-2/12">
               <Image className="rounded-xl" src={"/assets/vertigo.png"} width={80} height={80}/>
