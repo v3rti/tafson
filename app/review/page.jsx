@@ -3,11 +3,12 @@ import Image from 'next/image';
 
 import {AiFillPlayCircle, AiFillStar} from 'react-icons/ai';
 import {BsStarFill, BsStarHalf} from 'react-icons/bs';
+import {CiCircleMore} from 'react-icons/ci';
 
 export default function ReviewPage(){
 
   return (
-    <div className='mx-48 p-10'>
+    <div className='mx-48 p-10 flex flex-col gap-8'>
       <div className='flex justify-between'>
         <div className='flex gap-4'>
           <div className='flex flex-col gap-3 w-fit'>
@@ -36,6 +37,33 @@ export default function ReviewPage(){
               </div>
             </div>
             <div className='bg-primary-green px-6 py-2 text-secondary-jetstream w-fit rounded-xl'>Rate & Review</div>
+            <div className='mt-6 flex flex-col gap-2'>
+              <div className='text-primary-green font-semibold'>Raving Reviews</div>
+              <div className='flex gap-2 items-center'>
+                <div>
+                  <Image src="/assets/joji.png" width={50} height={50} className='rounded-full'/>
+                </div>
+                <div>
+                  <Image src="/assets/joji.png" width={50} height={50} className='rounded-full'/>
+                </div>
+                <div>
+                  <Image src="/assets/joji.png" width={50} height={50} className='rounded-full'/>
+                </div>
+                <div>
+                  <Image src="/assets/joji.png" width={50} height={50} className='rounded-full'/>
+                </div>
+                <div>
+                  <Image src="/assets/joji.png" width={50} height={50} className='rounded-full'/>
+                </div>
+                <div>
+                  <Image src="/assets/joji.png" width={50} height={50} className='rounded-full'/>
+                </div>
+                <div>
+                  <CiCircleMore className='w-10 h-10 text-primary-green'/>
+                </div>
+             </div>
+            </div>
+            
           </div>
         </div>
         <div className='flex flex-col gap-2 w-3/12'>
@@ -87,6 +115,9 @@ export default function ReviewPage(){
           </fieldset>
         </div>
         </div>
+      </div>
+      <div>
+        <div className='border-2 border-primary-green rounded-lg'>Review Form Here</div>
       </div>
     </div>
   )
