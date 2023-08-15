@@ -2,7 +2,7 @@
 
 import '@styles/globalStyles.css';
 import NavbarIn from '@components/NavbarIn';
-
+import Footer from '@components/Footer';
 
 
 export default function RootLayout({children}){
@@ -13,6 +13,7 @@ export default function RootLayout({children}){
       <body className="h-screen">
         <NavbarIn />
         {children}
+        {/* <Footer /> */}
       </body>
     </html>
   )
