@@ -1,9 +1,8 @@
 import '@styles/globalStyles.css';
 import Image from 'next/image';
 
-import {AiFillPlayCircle, AiFillStar} from 'react-icons/ai';
-import {BsStarFill, BsStarHalf} from 'react-icons/bs';
-import {CiCircleMore} from 'react-icons/ci';
+import {AiFillPlayCircle} from 'react-icons/ai';
+import {BsStarFill, BsStarHalf, BsStar} from 'react-icons/bs';
 
 export default function ReviewPage(){
 
@@ -126,7 +125,7 @@ export default function ReviewPage(){
       </div>
       <div>
         <div className=''>
-          <div className='text-2xl font-semibold text-primary-green mb-4'>Song Details</div>
+          <div className='text-2xl font-semibold text-primary-green'>Song Details</div>
           <div className='flex flex-col gap-4 py-4'>
             <div className=''>
               <div className='mb-2 text-primary-green font-semibold text-xl'>Joji (Artist Name)</div>
@@ -191,6 +190,37 @@ export default function ReviewPage(){
               </fieldset>
             </div>
           </div>
+        </div>
+      </div>
+      <div>
+        <div className='text-2xl font-semibold text-primary-green mb-4'>Reviews</div>
+        <div className=''>
+          <div className='flex justify-between'>
+            <div className='text-lg text-primary-green mb-3'>Leave your feedback: </div>
+            <div className='flex gap-1 text-primary-green'>
+                <BsStar className='w-6 h-6' />
+                <BsStar className='w-6 h-6' />
+                <BsStar className='w-6 h-6' />
+                <BsStar className='w-6 h-6' />
+                <BsStar className='w-6 h-6' />
+             </div>
+          </div>
+          <textarea cols="30" rows="4" className='p-4 w-full rounded-xl text-primary-green outline-0 bg-secondary-jetstream border-2 border-primary-green placeholder:text-slate-500' placeholder='Leave your review here..'>
+          </textarea>
+          <div className='flex justify-end'>
+            <div className='px-6 py-2 bg-primary-green text-secondary-jetstream w-fit rounded-lg mt-2 text-left text-lg mr-4'>Post my review</div>
+          </div>
+        </div>
+        <div className='w-full border-b-4 border-primary-green py-3'></div>
+        <div className='py-4 flex flex-col gap-3'>
+          <div className='flex gap-2 text-primary-green'>
+            <Image src="/assets/playboi.png" width={70} height={70} className='rounded-full'/>
+            <div className='flex flex-col'>
+              <div className='text-xl font-semibold'>Sarah Smith</div>
+              <div className='text-sm'>Member Since 2018</div>
+            </div>  
+          </div>
+          <div className='border-2 border-primary-green h-16 rounded-lg'></div>
         </div>
       </div>
     </div>
