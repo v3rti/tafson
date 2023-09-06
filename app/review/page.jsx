@@ -1,10 +1,17 @@
+'use client'
+
 import '@styles/globalStyles.css';
 import Image from 'next/image';
 
-import {AiFillPlayCircle} from 'react-icons/ai';
+import {AiFillPlayCircle, AiFillLike, AiOutlineLike, AiOutlineDislike, AiFillDislike} from 'react-icons/ai';
 import {BsStarFill, BsStarHalf, BsStar} from 'react-icons/bs';
 
+
+import Carousel from '@components/Carousel';
+
 export default function ReviewPage(){
+
+  const slides = ["run.jpeg","ew.png","run.jpeg","ew.png"]
 
   return (
     <div className='mx-48 p-10 flex flex-col gap-8'>
@@ -56,12 +63,9 @@ export default function ReviewPage(){
                 <div>
                   <Image src="/assets/soundcloud.png" width={50} height={50} className='rounded-full cursor-pointer'/>
                 </div>
-                
               </div>
-              
             </div>
           </div>
-          
           </div>
           
         </div>
@@ -102,25 +106,13 @@ export default function ReviewPage(){
              </div>
           </fieldset>
         </div>
-        {/* <div>
+        <div>
           <fieldset className='border-2 border-primary-green rounded-2xl'>
             <legend className='ml-4 p-2 text-xl font-semibold'>Similar Artists</legend>
             <div className='px-4 pt-1 pb-3 flex gap-2 justify-center items-center'>
-              <div className='flex flex-col gap-2'>
-                <Image src="/assets/willhe.jpg" className='rounded-xl' width={70} height={70}/>
-              </div>
-              <div className='flex flex-col gap-2'>
-                <Image src="/assets/run.jpeg" className='rounded-xl' width={70} height={70}/>
-              </div>
-              <div className='flex flex-col gap-2'>
-                <Image src="/assets/ew.png" className='rounded-xl' width={70} height={70}/>
-              </div>
-              <div className='flex flex-col gap-2'>
-                <Image src="/assets/ew.png" className='rounded-xl' width={70} height={70}/>
-              </div>
             </div>
           </fieldset>
-        </div> */}
+        </div>
         </div>
       </div>
       <div>
@@ -208,19 +200,75 @@ export default function ReviewPage(){
           <textarea cols="30" rows="4" className='p-4 w-full rounded-xl text-primary-green outline-0 bg-secondary-jetstream border-2 border-primary-green placeholder:text-slate-500' placeholder='Leave your review here..'>
           </textarea>
           <div className='flex justify-end'>
-            <div className='px-6 py-2 bg-primary-green text-secondary-jetstream w-fit rounded-lg mt-2 text-left text-lg mr-4'>Post my review</div>
+            <div className='px-6 py-2 bg-primary-green text-secondary-jetstream w-fit rounded-lg mt-2 text-left text-lg mr-4 cursor-pointer'>Post my review</div>
           </div>
         </div>
-        <div className='w-full border-b-4 border-primary-green py-3'></div>
-        <div className='py-4 flex flex-col gap-3'>
+        <div className='w-full border-b-4 border-primary-green py-3 mb-4'></div>
+        <div className='flex flex-col gap-3'>
           <div className='flex gap-2 text-primary-green'>
             <Image src="/assets/playboi.png" width={70} height={70} className='rounded-full'/>
             <div className='flex flex-col'>
               <div className='text-xl font-semibold'>Sarah Smith</div>
               <div className='text-sm'>Member Since 2018</div>
+              <div className='flex gap-1 text-primary-green'>
+                <BsStarFill className='w-5 h-5'/>
+                <BsStarFill className='w-5 h-5'/>
+                <BsStarFill className='w-5 h-5'/>
+                <BsStarFill className='w-5 h-5'/>
+                <BsStarFill className='w-5 h-5'/>
+              </div>
             </div>  
           </div>
-          <div className='border-2 border-primary-green h-16 rounded-lg'></div>
+          <div className='border-2 border-primary-green h-fit rounded-lg p-4 pr-16 text-primary-green'>
+            I was hooked right away. It's got this haunting sound that just grabs your attention. And his voice is like a warm hug on a rainy day. I was hooked right away. It's got this haunting sound that just grabs your attention. And his voice is like a warm hug on a rainy day. I was hooked right away. It's got this haunting sound that just grabs your attention. And his voice is like a warm hug on a rainy day. I was hooked right away. It's got this haunting sound that just grabs your attention. And his voice is like a warm hug on a rainy day.
+          </div>
+          <div className='mr-0 ml-auto text-primary-green'>
+            <div className='flex gap-2'><AiOutlineLike className='w-7 h-7 cursor-pointer' /> <AiOutlineDislike className='w-7 h-7 cursor-pointer' /></div>
+          </div>
+        </div>
+        <div className='flex flex-col gap-3'>
+          <div className='flex gap-2 text-primary-green'>
+            <Image src="/assets/playboi.png" width={70} height={70} className='rounded-full'/>
+            <div className='flex flex-col'>
+              <div className='text-xl font-semibold'>Sarah Smith</div>
+              <div className='text-sm'>Member Since 2018</div>
+              <div className='flex gap-1 text-primary-green'>
+                <BsStarFill className='w-5 h-5'/>
+                <BsStarFill className='w-5 h-5'/>
+                <BsStarFill className='w-5 h-5'/>
+                <BsStarFill className='w-5 h-5'/>
+                <BsStarFill className='w-5 h-5'/>
+              </div>
+            </div>  
+          </div>
+          <div className='border-2 border-primary-green h-fit rounded-lg p-4 pr-16 text-primary-green'>
+            I was hooked right away. It's got this haunting sound that just grabs your attention. And his voice is like a warm hug on a rainy day. I was hooked right away. It's got this haunting sound that just grabs your attention. And his voice is like a warm hug on a rainy day. I was hooked right away. It's got this haunting sound that just grabs your attention. And his voice is like a warm hug on a rainy day. I was hooked right away. It's got this haunting sound that just grabs your attention. And his voice is like a warm hug on a rainy day.
+          </div>
+          <div className='mr-0 ml-auto text-primary-green'>
+            <div className='flex gap-2'><AiOutlineLike className='w-7 h-7 cursor-pointer' /> <AiOutlineDislike className='w-7 h-7 cursor-pointer' /></div>
+          </div>
+        </div>
+        <div className='flex flex-col gap-3'>
+          <div className='flex gap-2 text-primary-green'>
+            <Image src="/assets/playboi.png" width={70} height={70} className='rounded-full'/>
+            <div className='flex flex-col'>
+              <div className='text-xl font-semibold'>Sarah Smith</div>
+              <div className='text-sm'>Member Since 2018</div>
+              <div className='flex gap-1 text-primary-green'>
+                <BsStarFill className='w-5 h-5'/>
+                <BsStarFill className='w-5 h-5'/>
+                <BsStarFill className='w-5 h-5'/>
+                <BsStarFill className='w-5 h-5'/>
+                <BsStarFill className='w-5 h-5'/>
+              </div>
+            </div>  
+          </div>
+          <div className='border-2 border-primary-green h-fit rounded-lg p-4 pr-16 text-primary-green'>
+            I was hooked right away. It's got this haunting sound that just grabs your attention. And his voice is like a warm hug on a rainy day. I was hooked right away. It's got this haunting sound that just grabs your attention. And his voice is like a warm hug on a rainy day. I was hooked right away. It's got this haunting sound that just grabs your attention. And his voice is like a warm hug on a rainy day. I was hooked right away. It's got this haunting sound that just grabs your attention. And his voice is like a warm hug on a rainy day.
+          </div>
+          <div className='mr-0 ml-auto text-primary-green'>
+            <div className='flex gap-2'><AiOutlineLike className='w-7 h-7 cursor-pointer' /> <AiOutlineDislike className='w-7 h-7 cursor-pointer' /></div>
+          </div>
         </div>
       </div>
     </div>
