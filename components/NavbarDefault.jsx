@@ -10,21 +10,24 @@ import { RiPlayListFill } from 'react-icons/ri'
 import { IoMdMicrophone } from 'react-icons/io'
 import { SiYoutubemusic } from 'react-icons/si'
 import { RxAvatar } from 'react-icons/rx'
+import {useStore} from '../app/store/stateStore';
 
 import Image from 'next/image';
 
 
-export default function NavbarDefault({loggedIn, signUpClicked}){
+export default function NavbarDefault(){
 
-  loggedIn(false);
+  const toggleLogin = useStore((state) => state.toggleLogin);
+  const toggleSignUpPop = useStore((state) => state.toggleSignUpPop);
 
+  const handleLoginClick = () => {
+    toggleLogin();
+    console.log("Clicked on Login")
+  };
 
-  function sendStatustoparent(){
-    loggedIn(true);
-  }
-
-  function onSignUpClick(){
-    signUpClicked(true);
+  const handleSignUp = () => {
+    toggleSignUpPop();
+    console.log("Opened the Sign Up Pop")
   }
 
   return (
@@ -35,10 +38,10 @@ export default function NavbarDefault({loggedIn, signUpClicked}){
         <Image src="/assets/Logo.svg" width={80} height={56} />
         <Searchbar />
       </div>
-      <div className="flex flex-row items-center cursor-pointer" onClick={sendStatustoparent}>
+      <div className="flex flex-row items-center cursor-pointer">
         <div className="flex gap-6 items-center">
-        <button className="py-1 w-28 flex justify-center items-center bg-secondary-jetstream rounded-md text-sm text-primary-green font-semibold border-secondary-jetstream border-2">Login</button>
-        <button className="py-1 w-28 flex justify-center items-center text-secondary-jetstream rounded-md text-sm bg-primary-green font-semibold border-secondary-jetstream border-2" onClick={onSignUpClick}>Sign up</button>
+        <button className="py-1 w-28 flex justify-center items-center bg-secondary-jetstream rounded-md text-sm text-primary-green font-semibold border-secondary-jetstream border-2" onClick={handleLoginClick}>Login</button>
+        <button className="py-1 w-28 flex justify-center items-center text-secondary-jetstream rounded-md text-sm bg-primary-green font-semibold border-secondary-jetstream border-2" onClick={handleSignUp}>Sign up</button>
         </div>
       </div>
     </nav>

@@ -2,15 +2,23 @@ import '@styles/globalStyles.css';
 
 import {AiFillGoogleCircle, AiFillTwitterCircle, AiOutlineClose} from 'react-icons/ai';
 import {BsFacebook} from 'react-icons/bs';
+import {useStore} from '../app/store/stateStore';
 
 
 export default function CreateAccount(){
+
+    const toggleSignUpPop = useStore((state) => state.toggleSignUpPop);
+
+    const handleSignUpPop = () => {
+        toggleSignUpPop();
+    }
+
     return(
         <div className="absolute w-full top-0 flex justify-center items-center h-screen">
             <div className='relative bg-primary-green opacity-50 h-screen w-full z-10 '></div>
             <div className="z-20 absolute mx-auto text-white px-0 pt-12 pb-24 rounded-2xl w-3/12 bg-primary-green border-2 border-secondary-jetstream">
                 <div className='flex items-center flex-col gap-8'>
-                    <div><AiOutlineClose className='text-secondary-jetstream w-5 h-5 absolute top-5 right-5'/></div>
+                    <div><AiOutlineClose className='text-secondary-jetstream w-5 h-5 absolute top-5 right-5 cursor-pointer' onClick={handleSignUpPop}/></div>
                     <div className='text-2xl font-semibold text-secondary-jetstream'>
                         Create a Tafson Account
                     </div>

@@ -10,7 +10,7 @@ export default function MyProfile(){
   return(
     <div className="mx-20 pt-8 text-primary-green pb-36">
       <div className="flex gap-6 justify-center mb-24">
-        <div className="relative  h-96 p-4 rounded-lg w-8/12 profileCover ">
+        <div className="relative  h-96 p-4 rounded-lg w-8/12  ">
           <AiOutlineMore className='absolute w-10 h-10 text-secondary-jetstream rotate-90 top-2 right-6 cursor-pointer'/>
           <div className='absolute -bottom-16 left-8 flex gap-6'>
             <Image src="/assets/profilePic.png" className='rounded-full z-20' height={255} width={255}/>
