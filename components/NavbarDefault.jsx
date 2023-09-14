@@ -19,6 +19,7 @@ export default function NavbarDefault(){
 
   const toggleLogin = useStore((state) => state.toggleLogin);
   const toggleSignUpPop = useStore((state) => state.toggleSignUpPop);
+  const toggleLoginPop = useStore((state) => state.toggleLoginPop);
 
   const handleLoginClick = () => {
     toggleLogin();
@@ -40,7 +41,8 @@ export default function NavbarDefault(){
       </div>
       <div className="flex flex-row items-center cursor-pointer">
         <div className="flex gap-6 items-center">
-        <button className="py-1 w-28 flex justify-center items-center bg-secondary-jetstream rounded-md text-sm text-primary-green font-semibold border-secondary-jetstream border-2" onClick={handleLoginClick}>Login</button>
+        <button className="py-1 w-28 flex justify-center items-center bg-secondary-jetstream rounded-md text-sm text-primary-green font-semibold border-secondary-jetstream border-2" onClick={toggleLogin}>Skip Login</button>
+        <button className="py-1 w-28 flex justify-center items-center bg-secondary-jetstream rounded-md text-sm text-primary-green font-semibold border-secondary-jetstream border-2" onClick={toggleLoginPop}>Login</button>
         <button className="py-1 w-28 flex justify-center items-center text-secondary-jetstream rounded-md text-sm bg-primary-green font-semibold border-secondary-jetstream border-2" onClick={handleSignUp}>Sign up</button>
         </div>
       </div>

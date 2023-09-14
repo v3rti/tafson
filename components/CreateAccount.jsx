@@ -5,7 +5,7 @@ import '@styles/globalStyles.css';
 import {AiFillGoogleCircle, AiFillTwitterCircle, AiOutlineClose} from 'react-icons/ai';
 import {BsFacebook} from 'react-icons/bs';
 import {useStore} from '../app/store/stateStore';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 
 export default function CreateAccount(){
@@ -15,6 +15,9 @@ export default function CreateAccount(){
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [dob, setDob] = useState('');
+
+    const setError = useStore((state) => state.setError);
+    const formError = useStore((state) = state.error);
 
     const [hideOptions, setHideOptions] = useState(true);
 
@@ -59,6 +62,7 @@ export default function CreateAccount(){
         } else {
           // Registration failed, handle error
           const errorData = await response.json();
+          setError(errorData.error); 
           // Handle the error message in errorData.error
         }
       } catch (error) {
@@ -66,6 +70,7 @@ export default function CreateAccount(){
       }
 
       };
+
 
     const toggleSignUpPop = useStore((state) => state.toggleSignUpPop);
 
@@ -75,9 +80,11 @@ export default function CreateAccount(){
 
     return(
         <div className="absolute w-full top-0 flex justify-center items-center h-screen">
-            <div className='relative bg-primary-green opacity-50 h-screen w-full z-10 '></div>
-            <div className="z-20 absolute mx-auto text-white px-0 p-8 pb-12 rounded-2xl w-3/12 bg-primary-green border-2 border-secondary-jetstream">
+            <div className='relative bg-primary-green opacity-50 h-screen w-full z-10 flex justify-center'></div>
+            
+            <div className="z-20 absolute mx-auto text-white px-0 py-6 pb-12 rounded-2xl w-3/12 bg-primary-green border-2 border-secondary-jetstream">
                 <div className='flex items-center flex-col gap-8'>
+                <div className='relative z-40 text-md text-primary-green bg-secondary-jetstream px-6 py-2 top-4 w-8/12 rounded-xl'>This email has already been taken please use a different one.</div>
                     <div><AiOutlineClose className='text-secondary-jetstream w-5 h-5 absolute top-5 right-5 cursor-pointer' onClick={handleSignUpPop}/></div>
                     <div className='text-2xl font-semibold text-secondary-jetstream'>
                         Create a Tafson Account
