@@ -14,7 +14,7 @@ export async function POST(req, res){
   const existingUser = await User.findOne({'email': userData.email});
 
   if(existingUser){
-    return Response.json({message: "User already exists"})
+    return Response.json({message: "This email address is already in use. Please choose another one."}, {status: 201})
   }
 
   
@@ -36,7 +36,7 @@ export async function POST(req, res){
 
       await user.save();
 
-      return Response.json({message: "User Created"}, {status: 201})
+      return Response.json({message: "User Created"}, {status: 200})
     } catch (error) {
       console.log(error.message)
 

@@ -16,6 +16,8 @@ export default function CreateAccount(){
     const [lastName, setLastName] = useState('');
     const [dob, setDob] = useState('');
 
+    
+
     const setError = useStore((state) => state.setError);
     const errorMsg = useStore((state) => state.error);
 
@@ -33,9 +35,10 @@ export default function CreateAccount(){
     const handleSubmit = async (e) => {
       e.preventDefault();
       console.log(dob);
-      // if (!firstName || !lastName || !email || !password || !dob ) {
-      //   return;
-      // }
+      if (!firstName || !lastName || !email || !password || !dob ) {
+        setError("Please fill in all required fields.")
+        return;
+      }
     
       try {
         const userData = {
@@ -57,17 +60,18 @@ export default function CreateAccount(){
           },
         });
         
-        if (response.ok) {
+        if (response.status === 200) {
           setError("Your Account has been successfully created.")
           setEmail("");
           setPassword("");
           setFirstName("");
           setLastName("");
           setDob("");
-        } else {
+        } else if (response.status === 201){
           // Registration failed, handle error
           const errorData = await response.json();
           setError(errorData.message); 
+          setEmail("");
           // Handle the error message in errorData.error
         }
       } catch (error) {
@@ -150,7 +154,9 @@ export default function CreateAccount(){
                         onChange={(e) => setDob(e.target.value)}
                       />
                     </div>
-                    <button type="submit" className='text-center py-2 text-primary-green bg-secondary-jetstream text-xl rounded-lg w-full'>Sign up</button>
+                    <button type="submit" className='text-center py-2 text-primary-green bg-secondary-jetstream text-xl rounded-lg w-full outline-none'>
+                      Sign up
+                    </button>
                     </form>
                     <div className='text-secondary-jetstream text-sm flex gap-1'>Already have an account?<p className='underline'> Login here</p></div>
                     <div className='border-b-2 border-secondary-jetstream w-10/12'></div>
