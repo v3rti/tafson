@@ -8,8 +8,7 @@ const store = (set) => ({
   isLoginPop: false,
   toggleLoginPop: () => set((state) => ({isLoginPop: !state.isLoginPop})),
   error: null,
-  setError: (error) => set({ error }),
-  clearError: () => set({ error: null }),
+  setError: (errorMessage) => set({ error: errorMessage }),
 })
 
 
