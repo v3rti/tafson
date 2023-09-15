@@ -21,7 +21,7 @@ export default function HomePage(){
 
   return (
     <div className={`relative h-full ${isSignUpPop || isLoginPop ? "overflow-hidden	" : ""}`}>
-        {isUserLogged ? <NavbarIn /> : <NavbarDefault/>}
+        
         {isUserLogged ? <BodyIn /> : <DemoBody /> }
         {/* <Footer /> */}
         {/* <MyLibrary /> */}

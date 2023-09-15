@@ -32,14 +32,14 @@ export const authOptions = {
   callbacks: {
     jwt(params) {
       if(params.user?.userId){
-        params.token.userId = params.user.userId;
+        params.token.firstName = params.user.firstName;
         params.token.email = params.user.email;
       }
       return params.token;
     },
     session({session, token}){
       if(session.user){
-        session.user.id = token.id
+        session.user.firstName = token.firstName
         session.user.email = token.email
       }
       return session;
