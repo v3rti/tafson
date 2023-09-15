@@ -8,13 +8,28 @@ export default function RecommendedSongs(){
 
   const [songs, setSongs] = useState([]);
 
+  const setPlayQueue = useStore((state) => state.setPlayQueue);
+
   const setCurrentlyPlaying  = useStore((state) => state.setCurrentlyPlaying);
   const currentlyPlaying = useStore((state) => state.currentlyPlaying)
 
-  const handlePlayClick = (previewLink) => {
-    setCurrentlyPlaying(previewLink);
-    console.log('Setting currentlyPlaying:', previewLink); 
+  const setCurrentSongInfos = useStore((state) => state.setCurrentSongInfos);
 
+  const isPlaying = useStore((state) => state.isPlaying);
+
+  const togglePlayPause = useStore((state) => state.togglePlayPause);
+
+  const setIsPlaying = useStore((state) => state.setIsPlaying);
+
+  const handlePlayClick = (previewLink, song) => {
+    setCurrentlyPlaying(previewLink);
+    setIsPlaying(true);
+    const image = song.album.images[0].url; // Replace with appropriate image size
+    const name = song.name;
+    const artist = song.artists[0].name; // Assuming only one artist
+    setCurrentSongInfos({ image, name, artist });
+    console.log('Setting currentlyPlaying:', previewLink); 
+    
   };
 
 
@@ -37,12 +52,14 @@ export default function RecommendedSongs(){
         const tracks = data.tracks;
         // Slice the first 8 songs from the array
         setSongs(tracks.slice(0, 8));
+        setPlayQueue(tracks.slice(0, 8))
       } catch (error) {
         console.error(error);
       }
     };
 
     fetchData();
+    
   }, []);
    
 
@@ -56,7 +73,7 @@ export default function RecommendedSongs(){
         {/* Use song data to populate the elements */}
         <div className="song-container">
           <Image src={song.album.images[0].url} width={200} height={200} />
-          <div className="play-icon cursor-pointer" onClick={() => handlePlayClick(song.preview_url)}>
+          <div className="play-icon cursor-pointer" onClick={() => handlePlayClick(song.preview_url, song)}>
             <AiFillPlayCircle className="w-20 h-20 text-primary-green" />
           </div>
         </div>

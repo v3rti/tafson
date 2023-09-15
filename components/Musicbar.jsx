@@ -13,8 +13,24 @@ export default function NewMusicBar() {
   const { status } = useSession();
 
   const currentlyPlaying = useStore((state) => state.currentlyPlaying);
+  
+  const setCurrentlyPlaying = useStore((state) => state.setCurrentlyPlaying);
 
-  const [isPlaying, setIsPlaying] = useState(false);
+  const setCurrentSongInfos = useStore((state) => state.setCurrentSongInfos);
+
+  const currentSongIndex = useStore((state) => state.currentSongIndex);
+  const setCurrentSongIndex = useStore((state) => state.setCurrentSongIndex);
+  
+  const playQueue = useStore((state) => state.playQueue);
+
+  const isPlaying = useStore((state) => state.isPlaying);
+
+  const currentSongInfos = useStore((state) => state.currentSongInfos);
+
+  const {image, name, artist} = currentSongInfos;
+
+  const togglePlayPause = useStore((state) => state.togglePlayPause);
+
   const [isLiked, setIsLiked] = useState(false);
   const [duration, setDuration] = useState('0:00');
   const [currentTime, setCurrentTime] = useState('0:00');
@@ -26,11 +42,14 @@ export default function NewMusicBar() {
     setIsLiked(!isLiked);
   }
 
+  function handleClick(){
+    togglePlayPause();
+  }
+
   const play = () => {
     const audioElement = document.getElementById('audioPlayer');
     if (audioElement) {
       audioElement.play();
-      setIsPlaying(true);
     }
   };
 
@@ -38,7 +57,6 @@ export default function NewMusicBar() {
     const audioElement = document.getElementById('audioPlayer');
     if (audioElement) {
       audioElement.pause();
-      setIsPlaying(false);
     }
   };
 
@@ -63,6 +81,8 @@ export default function NewMusicBar() {
       });
     }
 
+  
+
     return () => {
       if (audioElement) {
         audioElement.removeEventListener('timeupdate', () => {});
@@ -75,13 +95,28 @@ export default function NewMusicBar() {
       if (currentlyPlaying) {
         audioRef.current.src = currentlyPlaying;
         audioRef.current.play();
-        setIsPlaying(false);
       } else {
         audioRef.current.pause();
-        setIsPlaying(true);
       }
     }
+
+    console.log(playQueue);
+    console.log(currentlyPlaying);
   }, [currentlyPlaying]);
+  
+  const playNextSong = () => {
+    console.log(currentlyPlaying);
+    if (currentSongIndex < playQueue.length - 1) {
+      const image = playQueue[currentSongIndex].album.images[0].url; // Replace with appropriate image size
+      const name = playQueue[currentSongIndex].name;
+      const artist = playQueue[currentSongIndex].artists[0].name;
+      setCurrentSongIndex(currentSongIndex + 1);
+      setCurrentlyPlaying(playQueue[currentSongIndex].preview_url);
+      setCurrentSongInfos({ image, name, artist });
+    }
+    console.log(currentlyPlaying);
+  };
+
 
   return (
     <div className={`${isAuth ? "z-30 flex flex-row items-center justify-between gap-36 px-20 w-full bg-primary-green h-16 bottom-0 fixed" : "hidden"}`}>
@@ -105,6 +140,7 @@ export default function NewMusicBar() {
             <MdOutlinePause
               className="w-7 h-7 text-white"
               onClick={() => {
+                handleClick();
                 pause();
                 console.log(isPlaying)
               }}
@@ -115,13 +151,14 @@ export default function NewMusicBar() {
             <BsFillPlayFill
               className="w-7 h-7 text-white"
               onClick={() => {
+                handleClick();
                 play();
                 console.log(isPlaying)
               }}
             />
           </div>
         )}
-        <div>
+        <div onClick={playNextSong}>
           <MdSkipNext className="w-6 h-6 text-white" />
         </div>
         <div className="text-white ml-4">{currentTime}</div>
@@ -132,10 +169,10 @@ export default function NewMusicBar() {
         <div className="text-white">{duration}</div>
       </div>
       <div className="text-white flex flex-row items-center">
-        <Image src="/assets/sleep.jpg" width={47} height={47} />
+        <Image src={image ? image :"/assets/sleep.jpg" } width={47} height={47} />
         <div className="ml-3">
-          <p className="font-light">Sleep</p>
-          <p className="text-xs font-light">Trinity</p>
+          <p className="font-light">{name ? name : "Sleep"}</p>
+          <p className="text-xs font-light">{artist ? artist : "Trinity"}</p>
         </div>
         {isLiked ? (
           <div>

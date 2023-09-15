@@ -13,6 +13,13 @@ const store = (set) => ({
   setCurrentlyPlaying: (playingSong) => set({ currentlyPlaying: playingSong }),
   isPlaying: false,
   togglePlayPause: () => set((state) => ({ isPlaying: !state.isPlaying })),
+  setIsPlaying: (value) => set({isPlaying: value}),
+  currentSongInfos: {},
+  setCurrentSongInfos: (value) => set({currentSongInfos: value}),
+  playQueue: [],
+  setPlayQueue: (value) => set({playQueue: value}),
+  currentSongIndex:0,
+  setCurrentSongIndex: (value) => set({currentSongIndex: value})
 })
 
 
