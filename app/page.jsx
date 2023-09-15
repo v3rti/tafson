@@ -10,9 +10,15 @@ import { useStore } from "./store/stateStore";
 import CreateAccount from "@components/CreateAccount";
 import Footer from "@components/Footer";
 import LoginForm from "@components/LoginForm";
+import { useSession } from "next-auth/react";
 
 
 export default function HomePage(){
+
+  
+  const {data, status} = useSession();
+
+  const isAuth = status === "authenticated";
   
   const isUserLogged = useStore((state) => state.isUserLogged);
   const isSignUpPop = useStore((state) => state.isSignUpPop);
@@ -22,10 +28,10 @@ export default function HomePage(){
   return (
     <div className={`relative h-full ${isSignUpPop || isLoginPop ? "overflow-hidden	" : ""}`}>
         
-        {isUserLogged ? <BodyIn /> : <DemoBody /> }
+        {isAuth ? <BodyIn /> : <DemoBody /> }
         {/* <Footer /> */}
         {/* <MyLibrary /> */}
-        {isUserLogged ? <Musicbar /> : <div></div>}
+        {/* {isAuth ? <Musicbar /> : <div></div>} */}
         {isSignUpPop ? <CreateAccount /> : ""}
         {isLoginPop ? <LoginForm /> : ""}
         <Footer />

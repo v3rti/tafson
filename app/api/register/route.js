@@ -19,7 +19,7 @@ export async function POST(req){
 
     try {    
       const user = new User({
-        userId: 412,
+        userId,
         firstName: userData.firstName,
         lastName: userData.lastName,
         email: userData.email,

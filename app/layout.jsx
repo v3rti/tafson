@@ -6,6 +6,7 @@ import Footer from '@components/Footer';
 import AuthProvider from '@components/AuthProvider';
 import { useStore } from "./store/stateStore";
 import NavbarDefault from '@components/NavbarDefault';
+import Musicbar from '@components/Musicbar';
 
 
 export default function RootLayout({children}){
@@ -16,6 +17,7 @@ export default function RootLayout({children}){
       <body className="h-screen">
         <NavbarIn />
         {children}
+        <Musicbar />
         {/* <Footer /> */}
       </body>
     </html>

@@ -17,6 +17,8 @@ export default function LoginForm(){
 
   const {email, password} = userInfo;
 
+  const [loading, setLoading] = useState(false);
+
   const router = useRouter();
 
 
@@ -32,13 +34,25 @@ export default function LoginForm(){
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const res = await signIn("credentials", {
       email,
       password,
       redirect: false,
     })
-    if(res?.error) return setError(res.error);
-    router.replace('/profile')
+    if(res?.error)
+      {
+        setLoading(false);
+        setError(res.error);
+        return;
+      }
+    else{
+      setLoading(false);
+      toggleLoginPop();
+    }
+    
+    
+    // router.replace('/profile')
   };
 
   return(
@@ -77,7 +91,24 @@ export default function LoginForm(){
                         onChange={handleChange}
                       />
                     </div>
-                    <button type="submit" className='text-center py-2 text-primary-green bg-secondary-jetstream text-xl rounded-lg w-full'>Log In</button>
+                    <button type="submit" className='text-center py-2 text-primary-green bg-secondary-jetstream text-xl rounded-lg w-full outline-none flex flex-col justify-center items-center'>
+                    {loading ? <svg width="28" height="28" viewBox="0 0 38 38" xmlns="http://www.w3.org/2000/svg" stroke="#023430">
+                          <g fill="none" fill-rule="evenodd">
+                              <g transform="translate(1 1)" stroke-width="2">
+                                  <circle stroke-opacity=".5" cx="18" cy="18" r="18"/>
+                                  <path d="M36 18c0-9.94-8.06-18-18-18">
+                                      <animateTransform
+                                          attributeName="transform"
+                                          type="rotate"
+                                          from="0 18 18"
+                                          to="360 18 18"
+                                          dur="1s"
+                                          repeatCount="indefinite"/>
+                                  </path>
+                              </g>
+                          </g>
+                      </svg> : "Login"}
+                    </button>
                     </form>
                     
                     {/* <div className='border-b-2  border-secondary-jetstream text-xl text-secondary-jertstream w-8/12'>

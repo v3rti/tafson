@@ -10,13 +10,19 @@ import { IoHeadsetOutline } from 'react-icons/io5';
 import { BsFillPlayFill } from 'react-icons/bs';
 import { MdSkipPrevious, MdSkipNext, MdOutlinePause } from 'react-icons/md';
 import {IoMdHeart, IoMdHeartEmpty} from 'react-icons/io'
+import { useSession } from "next-auth/react";
+
+
 
 export default function Musicbar(){
+
+  const {status} = useSession();
 
   const [isPlaying, setIsPlaying] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
   const [duration, setDuration] = useState('0:00');
   const [currentTime, setCurrentTime] = useState('0:00');
+  const isAuth = status === "authenticated";
 
 
   function handlePlay(){
@@ -58,7 +64,8 @@ export default function Musicbar(){
   }, []);
 
 
-  return(
+  if(isAuth){
+    return(
     <div className="z-30 flex flex-row items-center justify-between gap-36 px-20 w-full bg-primary-green h-16 bottom-0 fixed">
       <div className="flex flex-row items-center text-white gap-2 ">
         <IoHeadsetOutline className="w-5 h-5" /> Listen Together
@@ -95,4 +102,9 @@ export default function Musicbar(){
       </div>
     </div>
   )
+  }
+  return (<audio ref={audioRef} onLoadedMetadata={handleLoadedMetadata}>
+    <source src="http://commondatastorage.googleapis.com/codeskulptor-assets/Epoq-Lepidoptera.ogg" />
+    Your browser does not support the audio element.
+  </audio>)
 }
