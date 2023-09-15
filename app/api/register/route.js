@@ -2,11 +2,9 @@ import connectMongoDB from '@libs/mongodb'
 import User from '@models/user'
 import { v4 as uuidv4 } from 'uuid';
 
-export async function POST(req, res){
+export async function POST(req){
 
   await connectMongoDB();
-
-
 
   const userData = await req.json();
   const userId = await uuidv4();
@@ -16,8 +14,6 @@ export async function POST(req, res){
   if(existingUser){
     return Response.json({message: "This email address is already in use. Please choose another one."}, {status: 201})
   }
-
-  
 
   if (req.method === 'POST') {
 

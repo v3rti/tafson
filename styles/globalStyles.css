@@ -79,6 +79,10 @@ body {
   background: rgba(94, 94, 94, 0.671)
 }
 
+::-webkit-calendar-picker-indicator {
+  
+}
+
 .profileCover {
   background-image: url("/assets/profileCover.png");
   background-size: cover;
@@ -97,3 +101,4 @@ body {
   background-position: right;
   opacity: 35%;
 }
+

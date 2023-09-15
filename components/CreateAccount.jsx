@@ -16,7 +16,7 @@ export default function CreateAccount(){
     const [lastName, setLastName] = useState('');
     const [dob, setDob] = useState('');
 
-    
+    const [loading, setLoading] = useState(false);  
 
     const setError = useStore((state) => state.setError);
     const errorMsg = useStore((state) => state.error);
@@ -27,7 +27,19 @@ export default function CreateAccount(){
     const userID = 48515;
     const profilePicture = "/assets/default_pfp.png";
 
-    
+    const clearErrorAfterDelay = () => {
+      if (errorMsg) {
+        // Set the error to null after 3000 milliseconds (3 seconds)
+        setTimeout(() => {
+          setError(null);
+        }, 5000);
+      }
+    };
+
+    useEffect(() => {
+      clearErrorAfterDelay();
+    }, [errorMsg]);
+
     const toggleOptions = () => {
         setHideOptions(!hideOptions);
     }
@@ -39,7 +51,9 @@ export default function CreateAccount(){
         setError("Please fill in all required fields.")
         return;
       }
-    
+
+      setLoading(true);
+
       try {
         const userData = {
           userID,
@@ -77,7 +91,7 @@ export default function CreateAccount(){
       } catch (error) {
         console.log(error)
       }
-
+        setLoading(false);
       };
 
 
@@ -154,8 +168,24 @@ export default function CreateAccount(){
                         onChange={(e) => setDob(e.target.value)}
                       />
                     </div>
-                    <button type="submit" className='text-center py-2 text-primary-green bg-secondary-jetstream text-xl rounded-lg w-full outline-none'>
-                      Sign up
+                    <button type="submit" disabled={loading ? true : false} className='text-center py-2 text-primary-green bg-secondary-jetstream text-xl rounded-lg w-full outline-none flex flex-col justify-center items-center'>
+                    {loading ? <svg width="28" height="28" viewBox="0 0 38 38" xmlns="http://www.w3.org/2000/svg" stroke="#023430">
+                          <g fill="none" fill-rule="evenodd">
+                              <g transform="translate(1 1)" stroke-width="2">
+                                  <circle stroke-opacity=".5" cx="18" cy="18" r="18"/>
+                                  <path d="M36 18c0-9.94-8.06-18-18-18">
+                                      <animateTransform
+                                          attributeName="transform"
+                                          type="rotate"
+                                          from="0 18 18"
+                                          to="360 18 18"
+                                          dur="1s"
+                                          repeatCount="indefinite"/>
+                                  </path>
+                              </g>
+                          </g>
+                      </svg> : "Sign up"
+                    }
                     </button>
                     </form>
                     <div className='text-secondary-jetstream text-sm flex gap-1'>Already have an account?<p className='underline'> Login here</p></div>
