@@ -9,6 +9,7 @@ import { MdLibraryMusic } from 'react-icons/md'
 import { RiPlayListFill } from 'react-icons/ri'
 import { IoMdMicrophone } from 'react-icons/io'
 import { SiYoutubemusic } from 'react-icons/si'
+import { BiSolidLogOut } from 'react-icons/bi';
 import { RxAvatar } from 'react-icons/rx'
 
 import { useStore } from '@app/store/stateStore';
@@ -50,11 +51,17 @@ export default function NavbarIn(){
         <div className="w-4/12 flex flex-row gap-12 items-center text-white">
           <Link href="/library"><div className='flex flex-row items-center gap-2 cursor-pointer text-sm'><MdLibraryMusic className='w-5 h-5'/>Reviews</div></Link>
           <div className='flex flex-row items-center gap-2 cursor-pointer text-sm'><RiPlayListFill className='w-5 h-5'/>Music Discovery</div>
-          <div className='flex flex-row items-center gap-2 cursor-pointer text-sm'><SiYoutubemusic className='w-5 h-5'/>Trending</div>
+          
           <div className='flex flex-row items-center gap-2 cursor-pointer text-sm'><IoMdMicrophone className='w-5 h-5'/>Podcasts</div>
         </div>
         <div className="w-fit flex flex-row gap-12 items-center text-white px-8">
-        {isAuth ? <Link href="/profile"><div className='flex flex-row items-center gap-2 cursor-pointer text-sm'><RxAvatar className='w-5 h-5'/>Welcome, {data?.user?.firstName} </div></Link> : ""}
+        {isAuth ? <Link href="/profile"><div className='flex flex-row items-center gap-2 cursor-pointer text-sm'>
+        <RxAvatar className='w-6 h-6'/>
+        <div className='flex gap-1 w-full'>
+          <div>Welcome,</div>
+          <div>{data?.user?.firstName}</div>
+        </div>
+        </div></Link> : ""}
         <button onClick={() => signOut()} className='cursor-pointer text-sm'>Logout</button>
         </div>
       </nav>

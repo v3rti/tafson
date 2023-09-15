@@ -9,7 +9,7 @@ export default function ArtistsCards(props){
         <div className='font-semibold text-lg'>Kanye West</div>
         <div>54M Monthly Listener</div>
       </div>
-      <div className='bg-primary-green text-secondary-jetstream w-fit py-2 px-8 font-semibold text-base rounded-lg '>Follow</div>
+      <div className='bg-primary-green text-secondary-jetstream w-fit py-2 px-8 font-semibold text-base rounded-lg '>Review</div>
     </div>
   )
 }

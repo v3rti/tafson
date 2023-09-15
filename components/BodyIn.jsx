@@ -7,6 +7,7 @@ import {AiFillPlayCircle} from 'react-icons/ai';
 import Playlist from './Playlist';
 import OtherPlaylists from './OtherPlaylists';
 import ArtistsCards from './ArtistsCards';
+import RecommendedSongs from './RecommendedSongs';
 
 
 export default function BodyIn(){
@@ -44,48 +45,7 @@ export default function BodyIn(){
           Stuff we thought you might like
         </div>
         {/* Recomended Music */}
-        <div className='mt-4 flex gap-6'>
-          <div className="text-primary-green">
-            <Image src="/assets/okjeremy.png" width={200} height={200} />
-            <div className="mt-1 font-semibold text-lg">OK</div>
-            <div className="-mt-1 font-semibold text-sm">Jeremy Zucker</div>
-          </div>
-          <div className="text-primary-green">
-            <Image src="/assets/theweeknd.png" width={200} height={200} />
-            <div className="mt-1 font-semibold text-lg">Acquainted</div>
-            <div className="-mt-1 font-semibold text-sm">The Weeknd</div>
-          </div>
-          <div className="text-primary-green">
-            <Image src="/assets/torylanez.png" width={200} height={200} />
-            <div className="mt-1 font-semibold text-lg">Midnight’s Interlude</div>
-            <div className="-mt-1 font-semibold text-sm">Tory Lanez</div>
-          </div>
-          <div className="text-primary-green">
-            <Image src="/assets/sewerperson.png" width={200} height={200} />
-            <div className="mt-1 font-semibold text-lg">Next stop, the moon</div>
-            <div className="-mt-1 font-semibold text-sm">Sewerperson</div>
-          </div>
-          <div className="text-primary-green">
-            <Image src="/assets/central-cee.png" width={200} height={200} />
-            <div className="mt-1 font-semibold text-lg">23</div>
-            <div className="-mt-1 font-semibold text-sm">Central Cee</div>
-          </div>
-          <div className="text-primary-green">
-            <Image src="/assets/theneighbourhood.png" width={200} height={200} />
-            <div className="mt-1 font-semibold text-lg">Cry Baby</div>
-            <div className="-mt-1 font-semibold text-sm">The Neighbourhood</div>
-          </div>
-          <div className="text-primary-green">
-            <Image src="/assets/theneighbourhood.png" width={200} height={200} />
-            <div className="mt-1 font-semibold text-lg">Cry Baby</div>
-            <div className="-mt-1 font-semibold text-sm">The Neighbourhood</div>
-          </div>
-          <div className="text-primary-green">
-            <Image src="/assets/theneighbourhood.png" width={200} height={200} />
-            <div className="mt-1 font-semibold text-lg">Cry Baby</div>
-            <div className="-mt-1 font-semibold text-sm">The Neighbourhood</div>
-          </div>
-        </div>
+        <RecommendedSongs />
         <div className='my-8'>
           <div className='text-2xl font-semibold mb-4'>Featured Playlists</div>
           <div className='flex gap-8 flex-wrap '>

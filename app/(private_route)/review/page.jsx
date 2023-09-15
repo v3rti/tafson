@@ -8,6 +8,7 @@ import {BsStarFill, BsStarHalf, BsStar} from 'react-icons/bs';
 
 
 import Carousel from '@components/Carousel';
+import Link from 'next/link';
 
 export default function ReviewPage(){
 
@@ -49,19 +50,7 @@ export default function ReviewPage(){
               <div className='text-primary-green font-semibold text-lg'>Listen on:</div>
               <div className='flex gap-2 items-center'>
                 <div>
-                  <Image src="/assets/spotify.png" width={50} height={50} className='rounded-full cursor-pointer'/>
-                </div>
-                <div>
-                  <Image src="/assets/applemusic.png" width={50} height={50} className='rounded-full cursor-pointer'/>
-                </div>
-                <div>
-                  <Image src="/assets/youtubemusic.png" width={50} height={50} className='rounded-full cursor-pointer'/>
-                </div>
-                <div>
-                  <Image src="/assets/deezer.png" width={50} height={50} className='rounded-full cursor-pointer'/>
-                </div>
-                <div>
-                  <Image src="/assets/soundcloud.png" width={50} height={50} className='rounded-full cursor-pointer'/>
+                  <Link href="http://google.com"><Image src="/assets/spotify.png" width={50} height={50} className='rounded-full cursor-pointer'/></Link>
                 </div>
               </div>
             </div>

@@ -2,7 +2,7 @@ import '@styles/globalStyles.css';
 import {AiFillGoogleCircle, AiFillTwitterCircle, AiOutlineClose} from 'react-icons/ai';
 import {BsFacebook} from 'react-icons/bs';
 import {useStore} from '../app/store/stateStore';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import {signIn} from 'next-auth/react';
 
@@ -10,6 +10,7 @@ import {signIn} from 'next-auth/react';
 export default function LoginForm(){
 
   const toggleLoginPop = useStore((state) => state.toggleLoginPop);
+  const toggleSignUpPop = useStore((state) => state.toggleSignUpPop)
 
   const [error, setError] = useState("");
 
@@ -21,6 +22,28 @@ export default function LoginForm(){
 
   const router = useRouter();
 
+  const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
+  const isValidEmail = emailRegex.test(email);
+
+
+  const handleSignUpHere = () => {
+    toggleLoginPop();
+    toggleSignUpPop();
+  }
+
+  const clearErrorAfterDelay = () => {
+    if (error) {
+      // Set the error to null after 3000 milliseconds (3 seconds)
+      setTimeout(() => {
+        setError(null);
+      }, 5000);
+    }
+  };
+
+  useEffect(() => {
+    clearErrorAfterDelay();
+  }, [error]);
 
   const handleChange = ({target}) => {
     const {name, value} = target;
@@ -34,6 +57,15 @@ export default function LoginForm(){
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if(!isValidEmail){
+      setError("Invalid email address. Please enter a valid email.");
+      return;
+    }
+
+    if(!email || !password){
+      setError("Please fill in all required fields.");
+      return;
+    }
     setLoading(true);
     const res = await signIn("credentials", {
       email,
@@ -59,11 +91,12 @@ export default function LoginForm(){
     <div>
       <div className="absolute w-full top-0 flex justify-center items-center h-screen">
             <div className='relative bg-primary-green opacity-50 h-screen w-full z-10 '></div>
-            <div className="z-20 absolute mx-auto text-white px-0 pt-12 pb-24 rounded-2xl w-3/12 bg-primary-green border-2 border-secondary-jetstream">
+            <div className="z-20 absolute mx-auto text-white px-0 pt-6 pb-16 rounded-2xl w-3/12 bg-primary-green border-2 border-secondary-jetstream">
+            
                 <div className='flex items-center flex-col gap-8'>
-                    <div><AiOutlineClose className='text-secondary-jetstream w-5 h-5 absolute top-5 right-5 cursor-pointer' onClick={handleLoginPop}/></div>
+                    <div><AiOutlineClose className='text-secondary-jetstream w-5 h-5 absolute top-5 right-5 cursor-pointer' onClick={toggleLoginPop}/></div>
+                    <div className={`${error ? 'relative z-40 text-md text-primary-green bg-secondary-jetstream px-6 py-2 top-2 w-8/12 rounded-xl' : 'hidden'}`}>{error}</div>
                     <div className='text-2xl font-semibold text-secondary-jetstream'>
-                      <div>Temporarly: {error}</div>
                         Login to Tafson
                     </div>
                     <form onSubmit={handleSubmit} className='flex flex-col gap-6 justify-center items-center w-8/12'>
@@ -115,7 +148,7 @@ export default function LoginForm(){
                         <div>Password</div>
                     </div> */}
                     
-                    <div className='text-secondary-jetstream text-sm flex gap-1'>Don't have an account?<p className='underline'> Sign up here</p></div>
+                    <div className='text-secondary-jetstream text-sm flex gap-1'>Don't have an account?<button onClick={handleSignUpHere}className='underline'> Sign up here</button></div>
                     <div className='border-b-2 border-secondary-jetstream w-10/12'></div>
                     <div className='px-3 flex gap-3 py-3 items-center text-black bg-secondary-jetstream text-xl rounded-lg w-8/12'>
                         <AiFillGoogleCircle className="h-8 w-8 text-primary-green"/> Continue using Google

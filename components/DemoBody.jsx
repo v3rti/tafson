@@ -1,10 +1,16 @@
 import '@styles/globalStyles.css';
 
+import { useStore } from '@app/store/stateStore';
+
 import {AiFillPlayCircle} from 'react-icons/ai';
 
 import Image from 'next/image';
 
 export default function DemoBody(){
+  
+  const toggleSignUpPop = useStore((state) => state.toggleSignUpPop);
+  
+
   return (
   <div className="h-auto w-full">
     <div className='mt-16 mb-8 mx-28 flex flex-col justify-center items-center gap-8'>
@@ -12,9 +18,9 @@ export default function DemoBody(){
         Experience Music Like Never Before
       </div>
       <p className="mx-80 text-center text-2xl font-semibold text-primary-green">Embark on a revolutionary musical journey and elevate your listening experience to new heights. Discover a world of unparalleled sound and sensation</p>
-      <div className='text-white bg-primary-green text-xl font-semibold py-3 px-5 rounded-lg cursor-pointer'>
+      <button onClick={toggleSignUpPop} className='text-white bg-primary-green text-xl font-semibold py-3 px-5 rounded-lg cursor-pointer'>
         Start Your Melodic Adventure
-      </div>
+      </button>
     </div>
     <div className="mx-28 flex py-10 gap-4">
       {/* Card 1 */}

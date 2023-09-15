@@ -15,9 +15,9 @@ export const authOptions = {
         const {email, password} = credentials;
         await connectMongoDB();
         const user = await User.findOne({email});
-        if(!user) throw Error("Email or Password doesn't match!");
+        if(!user) throw Error("Email and password do not match. Please try again.");
         const passwordMatch = await user.comparePassword(password);
-        if(!passwordMatch) throw Error("Email or Password doesn't match");
+        if(!passwordMatch) throw Error("Email and password do not match. Please try again.");
 
         return {
           userId: user.userId,

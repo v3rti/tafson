@@ -9,6 +9,10 @@ const store = (set) => ({
   toggleLoginPop: () => set((state) => ({isLoginPop: !state.isLoginPop})),
   error: null,
   setError: (errorMessage) => set({ error: errorMessage }),
+  currentlyPlaying: null,
+  setCurrentlyPlaying: (playingSong) => set({ currentlyPlaying: playingSong }),
+  isPlaying: false,
+  togglePlayPause: () => set((state) => ({ isPlaying: !state.isPlaying })),
 })
 
 

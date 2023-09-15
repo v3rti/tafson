@@ -24,8 +24,20 @@ export default function CreateAccount(){
     const [hideOptions, setHideOptions] = useState(true);
 
     const bio = "";
-    const userID = 48515;
     const profilePicture = "/assets/default_pfp.png";
+
+    const toggleSignUpPop = useStore((state) => state.toggleSignUpPop);
+    const toggleLoginPop = useStore((state) => state.toggleLoginPop);
+
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
+    const isValidEmail = emailRegex.test(email);
+
+
+    const handleLoginHere = () => {
+      toggleLoginPop();
+      toggleSignUpPop();
+    }
 
     const clearErrorAfterDelay = () => {
       if (errorMsg) {
@@ -47,6 +59,11 @@ export default function CreateAccount(){
     const handleSubmit = async (e) => {
       e.preventDefault();
       console.log(dob);
+
+      if(!isValidEmail) {
+        setError("Invalid email address. Please enter a valid email.");
+        return;
+      }
       if (!firstName || !lastName || !email || !password || !dob ) {
         setError("Please fill in all required fields.")
         return;
@@ -56,7 +73,6 @@ export default function CreateAccount(){
 
       try {
         const userData = {
-          userID,
           firstName,
           lastName,
           email,
@@ -93,9 +109,6 @@ export default function CreateAccount(){
       }
         setLoading(false);
       };
-
-
-    const toggleSignUpPop = useStore((state) => state.toggleSignUpPop);
 
     const handleSignUpPop = () => {
         toggleSignUpPop();
@@ -188,7 +201,7 @@ export default function CreateAccount(){
                     }
                     </button>
                     </form>
-                    <div className='text-secondary-jetstream text-sm flex gap-1'>Already have an account?<p className='underline'> Login here</p></div>
+                    <div className='text-secondary-jetstream text-sm flex gap-1'>Already have an account?<button onClick={handleLoginHere} className='underline'> Login here</button></div>
                     <div className='border-b-2 border-secondary-jetstream w-10/12'></div>
                     <button className={`${hideOptions ? 'px-3 flex gap-3 py-3 items-center text-primary-green bg-secondary-jetstream text-lg font-semibold rounded-lg w-8/12 justify-center' : 'hidden'}`} onClick={toggleOptions}>Explore More Options</button>
                     <div className={`${hideOptions ? 'hidden' : 'flex flex-col w-full gap-4 justify-center items-center'}`}>
