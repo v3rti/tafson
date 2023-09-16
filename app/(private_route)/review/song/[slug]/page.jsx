@@ -13,6 +13,8 @@ import Carousel from '@components/Carousel';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useStore } from '@app/store/stateStore';
+import StarRating from '@components/StarRating';
+import RatingDropdown from '@components/RatingDropdown';
 
 export default function ReviewPage({params}){
 
@@ -23,8 +25,15 @@ export default function ReviewPage({params}){
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [content, setContent] = useState("");
-  const [rating, setRating] = useState(4);
+  const [rating, setRating] = useState(1);
   const [fetchedReview, setFetchedReview] = useState();
+
+  const ratingOptions = [1, 2, 3, 4, 5];
+  const [selectedRating, setSelectedRating] = useState('');
+  
+  const handleRatingChange = (event) => {
+    setRating(event.target.value);
+  };
 
   useEffect(() => {
     getReviewInfos().then(setSong);
@@ -53,6 +62,7 @@ export default function ReviewPage({params}){
         rating,
         content,
         reviewType: "song",
+        firstName: data.user.firstName, 
         reviewId: params.slug,
       };
 
@@ -67,7 +77,7 @@ export default function ReviewPage({params}){
       if (response.status === 200) {
         setError("Review has been submitted successfully!")
         setContent("");
-        setRating(4);
+        setRating(0);
       } else if (response.status === 201){
 
         const errorData = await response.json();
@@ -80,7 +90,7 @@ export default function ReviewPage({params}){
       setLoading(false);
     };
 
-
+    
 
 
   const apiKey = process.env.RAPID_API;
@@ -351,18 +361,29 @@ export default function ReviewPage({params}){
         </div>
         <div>
           <div className='text-2xl font-semibold text-primary-green mb-4'>Reviews</div>
+          <div className={`"text-primary-green font-bold" ${error} ? "" : "hidden"`}> {error} </div>
           <div className=''>
             <div className='flex justify-between'>
               <div className='text-lg text-primary-green mb-3'>Leave your feedback: </div>
-              <div className='flex gap-1 text-primary-green'>
-                  <BsStar className='w-6 h-6' />
-                  <BsStar className='w-6 h-6' />
-                  <BsStar className='w-6 h-6' />
-                  <BsStar className='w-6 h-6' />
-                  <BsStar className='w-6 h-6' />
-               </div>
+              <div className='className="rating-dropdown-container'>
+              <label className="rating-label" htmlFor="ratingDropdown">
+                Select a Rating:
+              </label>
+                <select className="rating-select"
+                  id="ratingDropdown"
+                  name="rating"
+                  value={rating}
+                  onChange={handleRatingChange}
+                >
+                  <option value=""></option>
+                  {ratingOptions.map((rating) => (
+                    <option key={rating} value={rating}>
+                      {rating}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
-            <div clas>Form Error Here: {error}</div>
             <form onSubmit={handleSubmit}>
             <textarea cols="30" rows="4" className='p-4 w-full rounded-xl text-primary-green outline-0 bg-secondary-jetstream border-2 border-primary-green placeholder:text-slate-500' placeholder='Leave your review here..'
             id="content"
@@ -376,12 +397,13 @@ export default function ReviewPage({params}){
             </form>
           </div>
           <div className='w-full border-b-4 border-primary-green py-3 mb-4'></div>
+          <div className='mb-16'>
           {fetchedReview ? fetchedReview.reviews.filter((review) => review.reviewId === params.slug).map(review => {
-            return <div className='flex flex-col gap-3 mb-4'>
+            return <div className='flex flex-col gap-3'>
             <div className='flex gap-2 text-primary-green'>
-              <Image src="/assets/playboi.png" width={70} height={70} className='rounded-full'/>
+              <Image src="/assets/default_profile.png" width={70} height={70} className='rounded-full'/>
               <div className='flex flex-col'>
-                <div className='text-xl font-semibold'>Sarah Smith</div>
+                <div className='text-xl font-semibold'>{review.firstName}</div>
                 <div className='text-sm'>Member Since 2018</div>
                 <div className='flex gap-1 text-primary-green'>
                   {renderDivs(review.rating)}
@@ -395,6 +417,7 @@ export default function ReviewPage({params}){
             </div>
           </div>
           }): "no reviews"}    
+          </div>
         </div>
       </div>
     )

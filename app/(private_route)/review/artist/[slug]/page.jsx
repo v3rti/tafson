@@ -12,6 +12,7 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useStore } from '@app/store/stateStore';
 import { useRouter } from 'next/router';
+import { useSession } from 'next-auth/react';
 
 export default function ReviewPage({params}){
 
@@ -23,10 +24,54 @@ export default function ReviewPage({params}){
 
   const [artistInfo, setArtistInfo] = useState();
 
-  const [loading, setLoading] = useState(true);
+  const {data, status} = useSession();
+
+  const email = data?.user?.email;
 
   const setReviewArtist = useStore((state) => state.setReviewArtist)
   const reviewArtist = useStore((state) => state.reviewArtist)
+  
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [content, setContent] = useState("");
+  const [rating, setRating] = useState(0);
+  const [fetchedReview, setFetchedReview] = useState();
+  
+
+  const ratingOptions = [1, 2, 3, 4, 5];
+  const [selectedRating, setSelectedRating] = useState('');
+
+  const handleRatingChange = (event) => {
+    setRating(event.target.value);
+  };
+
+  useEffect(() => {
+    fetchReviews().then(setFetchedReview);
+  }, [])
+
+  const fetchReviews = async () => {
+    
+    const response = await fetch(`/api/review`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    return response.json();
+} 
+
+const renderDivs = (count) => {
+  const divs = [];
+
+  for (let i = 0; i < count; i++) {
+    const key = `div-${i}`;
+
+    divs.push(<BsStarFill key={i}className='w-6 h-6' />);
+  }
+
+  return divs;
+};
 
   const getArtistInfos = async () => {
       const url =
@@ -49,6 +94,53 @@ export default function ReviewPage({params}){
       }
 
   }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log("submitted the form")
+
+    if (!content) {
+      setError("Please write a review first!")
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const reviewData = {
+        email,
+        rating,
+        content,
+        reviewType: "artist",
+        firstName: data.user.firstName, 
+        reviewId: params.slug,
+      };
+
+      const response = await fetch('/api/review', {
+        method: 'POST',
+        body: JSON.stringify(reviewData),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      
+      if (response.status === 200) {
+        setError("Review has been submitted successfully!")
+        setContent("");
+        setRating(4);
+      } else if (response.status === 201){
+
+        const errorData = await response.json();
+        setError(errorData.message); 
+        setEmail("");
+      }
+    } catch (error) {
+      console.log(error)
+    }
+      setLoading(false);
+    };
+
+
 
   function addCommasToNumber(number) {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -174,93 +266,65 @@ export default function ReviewPage({params}){
           </div>
         </div>
         <div>
-          
         </div>
         <div>
           <div className='text-2xl font-semibold text-primary-green mb-4'>Reviews</div>
+          <div className={`"text-primary-green font-bold" ${error} ? "" : "hidden"`}> {error} </div>
           <div className=''>
             <div className='flex justify-between'>
               <div className='text-lg text-primary-green mb-3'>Leave your feedback: </div>
-              <div className='flex gap-1 text-primary-green'>
-                  <BsStar className='w-6 h-6' />
-                  <BsStar className='w-6 h-6' />
-                  <BsStar className='w-6 h-6' />
-                  <BsStar className='w-6 h-6' />
-                  <BsStar className='w-6 h-6' />
-               </div>
+              <div className='className="rating-dropdown-container'>
+              <label className="rating-label" htmlFor="ratingDropdown">
+                Select a Rating:
+              </label>
+                <select className="rating-select"
+                  id="ratingDropdown"
+                  name="rating"
+                  value={rating}
+                  onChange={handleRatingChange}
+                >
+                  <option value=""></option>
+                  {ratingOptions.map((rating) => (
+                    <option key={rating} value={rating}>
+                      {rating}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
-            <textarea cols="30" rows="4" className='p-4 w-full rounded-xl text-primary-green outline-0 bg-secondary-jetstream border-2 border-primary-green placeholder:text-slate-500' placeholder='Leave your review here..'>
+            <form onSubmit={handleSubmit}>
+            <textarea cols="30" rows="4" className='p-4 w-full rounded-xl text-primary-green outline-0 bg-secondary-jetstream border-2 border-primary-green placeholder:text-slate-500' placeholder='Leave your review here..'
+            id="content"
+            name="content"
+            value={content}
+            onChange={(e) => setContent(e.target.value)}>
             </textarea>
-            <div className='flex justify-end'>
-              <div className='px-6 py-2 bg-primary-green text-secondary-jetstream w-fit rounded-lg mt-2 text-left text-lg mr-4 cursor-pointer'>Post my review</div>
+            <div type="submit" className='flex justify-end'>
+              <button disabled={loading ? true : false} className='px-6 py-2 bg-primary-green text-secondary-jetstream w-fit rounded-lg mt-2 text-left text-lg mr-4 cursor-pointer'>Post my review</button>
             </div>
+            </form>
           </div>
           <div className='w-full border-b-4 border-primary-green py-3 mb-4'></div>
-          <div className='flex flex-col gap-3'>
+          <div className='mb-16'>
+          {fetchedReview ? fetchedReview.reviews.filter((review) => review.reviewId === params.slug).map(review => {
+            return <div className='flex flex-col gap-3'>
             <div className='flex gap-2 text-primary-green'>
-              <Image src="/assets/playboi.png" width={70} height={70} className='rounded-full'/>
+              <Image src="/assets/default_profile.png" width={70} height={70} className='rounded-full'/>
               <div className='flex flex-col'>
-                <div className='text-xl font-semibold'>Sarah Smith</div>
+                <div className='text-xl font-semibold'>{review.firstName}</div>
                 <div className='text-sm'>Member Since 2018</div>
                 <div className='flex gap-1 text-primary-green'>
-                  <BsStarFill className='w-5 h-5'/>
-                  <BsStarFill className='w-5 h-5'/>
-                  <BsStarFill className='w-5 h-5'/>
-                  <BsStarFill className='w-5 h-5'/>
-                  <BsStarFill className='w-5 h-5'/>
+                  {renderDivs(review.rating)}
                 </div>
               </div>  
             </div>
             <div className='border-2 border-primary-green h-fit rounded-lg p-4 pr-16 text-primary-green'>
-              I was hooked right away. It's got this haunting sound that just grabs your attention. And his voice is like a warm hug on a rainy day. I was hooked right away. It's got this haunting sound that just grabs your attention. And his voice is like a warm hug on a rainy day. I was hooked right away. It's got this haunting sound that just grabs your attention. And his voice is like a warm hug on a rainy day. I was hooked right away. It's got this haunting sound that just grabs your attention. And his voice is like a warm hug on a rainy day.
+              {review.content}
             </div>
             <div className='mr-0 ml-auto text-primary-green'>
-              <div className='flex gap-2'><AiOutlineLike className='w-7 h-7 cursor-pointer' /> <AiOutlineDislike className='w-7 h-7 cursor-pointer' /></div>
             </div>
           </div>
-          <div className='flex flex-col gap-3'>
-            <div className='flex gap-2 text-primary-green'>
-              <Image src="/assets/playboi.png" width={70} height={70} className='rounded-full'/>
-              <div className='flex flex-col'>
-                <div className='text-xl font-semibold'>Sarah Smith</div>
-                <div className='text-sm'>Member Since 2018</div>
-                <div className='flex gap-1 text-primary-green'>
-                  <BsStarFill className='w-5 h-5'/>
-                  <BsStarFill className='w-5 h-5'/>
-                  <BsStarFill className='w-5 h-5'/>
-                  <BsStarFill className='w-5 h-5'/>
-                  <BsStarFill className='w-5 h-5'/>
-                </div>
-              </div>  
-            </div>
-            <div className='border-2 border-primary-green h-fit rounded-lg p-4 pr-16 text-primary-green'>
-              I was hooked right away. It's got this haunting sound that just grabs your attention. And his voice is like a warm hug on a rainy day. I was hooked right away. It's got this haunting sound that just grabs your attention. And his voice is like a warm hug on a rainy day. I was hooked right away. It's got this haunting sound that just grabs your attention. And his voice is like a warm hug on a rainy day. I was hooked right away. It's got this haunting sound that just grabs your attention. And his voice is like a warm hug on a rainy day.
-            </div>
-            <div className='mr-0 ml-auto text-primary-green'>
-              <div className='flex gap-2'><AiOutlineLike className='w-7 h-7 cursor-pointer' /> <AiOutlineDislike className='w-7 h-7 cursor-pointer' /></div>
-            </div>
-          </div>
-          <div className='flex flex-col gap-3'>
-            <div className='flex gap-2 text-primary-green'>
-              <Image src="/assets/playboi.png" width={70} height={70} className='rounded-full'/>
-              <div className='flex flex-col'>
-                <div className='text-xl font-semibold'>Sarah Smith</div>
-                <div className='text-sm'>Member Since 2018</div>
-                <div className='flex gap-1 text-primary-green'>
-                  <BsStarFill className='w-5 h-5'/>
-                  <BsStarFill className='w-5 h-5'/>
-                  <BsStarFill className='w-5 h-5'/>
-                  <BsStarFill className='w-5 h-5'/>
-                  <BsStarFill className='w-5 h-5'/>
-                </div>
-              </div>  
-            </div>
-            <div className='border-2 border-primary-green h-fit rounded-lg p-4 pr-16 text-primary-green'>
-              I was hooked right away. It's got this haunting sound that just grabs your attention. And his voice is like a warm hug on a rainy day. I was hooked right away. It's got this haunting sound that just grabs your attention. And his voice is like a warm hug on a rainy day. I was hooked right away. It's got this haunting sound that just grabs your attention. And his voice is like a warm hug on a rainy day. I was hooked right away. It's got this haunting sound that just grabs your attention. And his voice is like a warm hug on a rainy day.
-            </div>
-            <div className='mr-0 ml-auto text-primary-green'>
-              <div className='flex gap-2'><AiOutlineLike className='w-7 h-7 cursor-pointer' /> <AiOutlineDislike className='w-7 h-7 cursor-pointer' /></div>
-            </div>
+          }): "no reviews"}    
           </div>
         </div>
       </div>

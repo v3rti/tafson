@@ -18,6 +18,7 @@ export async function POST(req){
     try {    
       const review = new Review({
         email: reviewData.email,
+        firstName: reviewData.firstName,
         rating: reviewData.rating,
         content: sanitizeHtml(reviewData.content),
         reviewType: reviewData.reviewType,
