@@ -1,5 +1,6 @@
 'use client'
 
+
 import '@styles/globalStyles.css';
 import Image from 'next/image';
 
@@ -10,19 +11,23 @@ import Carousel from '@components/Carousel';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useStore } from '@app/store/stateStore';
+import { useRouter } from 'next/router';
 
 export default function ReviewPage({params}){
 
-  const [song, setSong] = useState();
+  const apiKey = process.env.RAPID_API;
+
   const [artistInfo, setArtistInfo] = useState();
+
+  const [loading, setLoading] = useState(true);
 
   const setReviewArtist = useStore((state) => state.setReviewArtist)
   const reviewArtist = useStore((state) => state.reviewArtist)
 
-  useEffect(() => {
+  const getArtistInfos = async () => {
     const fetchData = async () => {
       const url =
-        `https://spotify23.p.rapidapi.com/tracks/?ids=${params.slug}`;
+        `https://spotify23.p.rapidapi.com/artist_overview/?id=${params.slug}`;
       const options = {
         method: 'GET',
         headers: {
@@ -33,91 +38,43 @@ export default function ReviewPage({params}){
 
       try {
         const response = await fetch(url, options);
-        const data = await response.json();
+        const result = await response.json();
 
-        const tracks = data.tracks
-        setSong(tracks[0]);
-        setReviewArtist(tracks[0].artists[0].id);
-        
+        setArtistInfo(result.data.artist)
       } catch (error) {
         console.error(error);
       }
     };
     fetchData();
-    
-  }, []);
-
-  console.log("review artist is: ", reviewArtist)
-  useEffect( async () => {
-    if(reviewArtist){
-      return;
-    }
-    const url = `https://spotify23.p.rapidapi.com/artist_overview/?id=${reviewArtist}`;
-    const options = {
-      method: 'GET',
-      headers: {
-        'X-RapidAPI-Key': '26681d754fmsh3cb5cb5a73b9a6ap1500d6jsn1ab2e9d4d46e',
-        'X-RapidAPI-Host': 'spotify23.p.rapidapi.com'
-      }
-    };
-    
-    try {
-      const response = await fetch(url, options);
-      const result = await response.json();
-      const data = result.data;
-
-      setArtistInfo(data);
-    } catch (error) {
-      console.error(error);
-    }
   }
-  , [])
+
+  useEffect(() => getArtistInfos(), []);
 
 
-  const slides = ["run.jpeg","ew.png","run.jpeg","ew.png"]
+  function addCommasToNumber(number) {
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
 
-  const setCurrentlyPlaying = useStore((state) => state.setCurrentlyPlaying);
-  const setIsPlaying = useStore((state) => state.setIsPlaying);
-
-  const setCurrentSongInfos = useStore((state) => state.setCurrentSongInfos);
-
-  const handlePlayClick = (song) => {
-    const previewLink = song?.preview_url;
-    setCurrentlyPlaying(previewLink);
-    setIsPlaying(true);
-    const image = song?.album.images[0].url;
-    const name = song?.name;
-    const artist = song?.artists[0].name;
-    setCurrentSongInfos({ image, name, artist });
-    console.log('Setting currentlyPlaying:', previewLink);  
-  };
+  const handleRouting = (id) => {
+    console.log(id);
+  }
 
 
-  if(song){
+  if(artistInfo)
     return (
       <div className='mx-48 p-10 flex flex-col gap-8'>
         <div className='flex justify-between'>
           <div className='flex gap-4'>
             
             <div className='flex flex-col gap-3 w-fit'>
-              <Image src={song?.album.images[0].url} width={280} height={280} className='rounded-xl'/>
-              <div onClick={() => handlePlayClick(song)} className='relative border-primary-green border-2 px-4 py-2 text-primary-green flex rounded-2xl items-center justify-center cursor-pointer'>
-                <div className='absolute left-2'><AiFillPlayCircle className='w-8 h-8'/></div>
-                <div className='text-lg'>Play Demo</div>
-              </div>
+              <Image src={artistInfo?.visuals.avatarImage.sources[0].url} width={280} height={280} className='rounded-xl'/>
+    
             </div>
             <div className='flex gap-36'>
               <div className='flex flex-col gap-4'>
               <div className='text-primary-green'>
-                <div className='text-3xl font-semibold'>{song?.name}</div>
-                <div className='flex gap-1'>By<Link className='font-semibold' href={song?.artists[0].external_urls.spotify}>{song?.artists[0].name}</Link></div>
-                {song?.artists.length > 1 ? <div className='flex gap-1 text-sm'>Featuring:
-                  <div className='flex gap-2'>
-                    {song?.artists.slice(1).map(artist => {
-                    return <Link href={artist.external_urls.spotify} className='font-semibold cursor-pointer'>{artist.name}</Link>
-                  })}
-                  </div>
-                </div> : ""}
+                <div className='text-3xl font-semibold'>{artistInfo?.profile.name}</div>
+                <div className='flex gap-1'>Followers: {addCommasToNumber(artistInfo.stats.followers)}</div>
               </div>
               <div className='flex gap-3 items-center text-primary-green'>
                 <div className='flex gap-1'>
@@ -134,10 +91,10 @@ export default function ReviewPage({params}){
               </div>
               <div className='bg-primary-green px-6 py-2 text-secondary-jetstream w-fit rounded-xl'>Rate & Review</div>
               <div className='mt-4 flex flex-col gap-2'>
-                <div className='text-primary-green font-semibold text-lg'>Listen on:</div>
+                <div className='text-primary-green font-semibold text-lg'>Check artist profile on:</div>
                 <div className='flex gap-2 items-center'>
                   <div>
-                    <Link href={song.external_urls.spotify}><Image src="/assets/spotify.png" width={50} height={50} className='rounded-full cursor-pointer'/></Link>
+                    <Link href={artistInfo.sharingInfo.shareUrl}><Image src="/assets/spotify.png" width={50} height={50} className='rounded-full cursor-pointer'/></Link>
                   </div>
                 </div>
               </div>
@@ -182,13 +139,7 @@ export default function ReviewPage({params}){
                </div>
             </fieldset>
           </div>
-          <div>
-            <fieldset className='border-2 border-primary-green rounded-2xl'>
-              <legend className='ml-4 p-2 text-xl font-semibold'>Similar Artists</legend>
-              <div className='px-4 pt-1 pb-3 flex gap-2 justify-center items-center'>
-              </div>
-            </fieldset>
-          </div>
+          
           </div>
         </div>
         <div>
@@ -196,8 +147,7 @@ export default function ReviewPage({params}){
             <div className='text-2xl font-semibold text-primary-green'>Song Details</div>
             <div className='flex flex-col gap-4 py-4'>
               <div className=''>
-                <div className='mb-2 text-primary-green font-semibold text-xl'>Joji (Artist Name)</div>
-                <div className='text-primary-green'>George Kusunoki Miller (ミラー・ジョージ・クスノキ, Mirā Jōji Kusunoki, born 18 September 1992),[2] known professionally as Joji and formerly for playing the characters Filthy Frank and Pink Guy, is a Japanese singer-songwriter, rapper and internet personality. Miller's music has been described as a mix between R&B, lo-fi, and trip hop.</div>
+                <div className='mb-2 text-primary-green font-semibold text-xl'>Artist Name: {artistInfo?.profile.name}</div>
               </div>
               <div className='w-full flex justify-between gap-3 text-primary-green'>
                 <div className="w-full">
@@ -205,55 +155,46 @@ export default function ReviewPage({params}){
                     <tbody>
                       <tr>
                         <td className="pr-48 py-2 font-semibold">Title</td>
-                        <td className="px-4 py-2">Slow Dancing in The Dark</td>
+                        <td className="px-4 py-2">{artistInfo?.profile.name}</td>
                       </tr>
                       <tr>
-                        <td className="pr-48 py-2 font-semibold">Genre</td>
-                        <td className="px-4 py-2">R&B</td>
+                        <td className="pr-48 py-2 font-semibold">Artist</td>
+                        <td className="px-4 py-2">{artistInfo?.profile.name}</td>
                       </tr>
                       <tr>
-                        <td className="pr-48 py-2 font-semibold">Album</td>
-                        <td className="px-4 py-2">Ballads 1</td>
+                        <td className="pr-48 py-2 font-semibold">Duration</td>
+                        <td className="px-4 py-2"></td>
+                      </tr>
+                      <tr>
+                        <td className="pr-48 py-2 font-semibold">Album Type</td>
+                        <td className="px-4 py-2"></td>
                       </tr>
                       <tr>
                         <td className="pr-48 py-2 font-semibold">Release Date</td>
-                        <td className="px-4 py-2">12 September 2018</td>
+                        <td className="px-4 py-2"></td>
                       </tr>
                       <tr>
-                        <td className="pr-48 py-2 font-semibold">Producer</td>
-                        <td className="px-4 py-2">George Miller & Patrick Wimberly</td>
+                        <td className="pr-48 py-2 font-semibold">Explicit</td>
+                        <td className="px-4 py-2"></td>
                       </tr>
                       <tr>
-                        <td className="pr-48 py-2 font-semibold">Featured Artists</td>
-                        <td className="px-4 py-2">Joji</td>
+                      
                       </tr>
                     </tbody>
                   </table>
                 </div>
                 <fieldset className='w-4/12 border-2 border-primary-green rounded-2xl'>
-                  <legend className='ml-4 p-2 text-xl font-semibold'>More Songs From The Artist</legend>
+                  <legend className='ml-4 p-2 text-xl font-semibold'>{artistInfo.profile.name} Songs:</legend>
                   <div className='px-4 py-2 flex gap-2 flex-col'>
-                    <div className='flex gap-2'>
-                      <Image src="/assets/willhe.jpg" className='rounded-xl' width={50} height={50}/>
+                  {artistInfo?.discography.topTracks.items.slice(0, 3).map((item) => {
+                    return <div className='flex gap-2'>
+                      <Image src={item.track.album.coverArt.sources[0].url} className='rounded-xl' width={50} height={50}/>
                       <div className='flex flex-col justify-between'>
-                        <div className='text-lg'>Will He</div>
+                        <Link href={`http://localhost:3000/review/song/${item.track.id}`}><div className='text-lg cursor-pointer'>{item.track.name}</div></Link>
                         <div className='flex gap-1 text-sm'><div className='font-semibold'>4,712</div>Review</div>
                       </div>
                     </div>
-                    <div className='flex gap-2'>
-                      <Image src="/assets/run.jpeg" className='rounded-xl' width={50} height={50}/>
-                      <div className='flex flex-col justify-between'>
-                        <div className='text-lg'>Run</div>
-                        <div className='flex gap-1 text-sm'><div className='font-semibold'>1,420</div>Review</div>
-                      </div>
-                    </div>
-                    <div className='flex gap-2'>
-                      <Image src="/assets/ew.png" className='rounded-xl' width={50} height={50}/>
-                      <div className='flex flex-col justify-between'>
-                        <div className='text-lg'>Ew</div>
-                        <div className='flex gap-1 text-sm'><div className='font-semibold'>1,141</div>Review</div>
-                      </div>
-                    </div>
+                  })}
                   </div>
                 </fieldset>
               </div>
@@ -349,5 +290,4 @@ export default function ReviewPage({params}){
         </div>
       </div>
     )
-  }
 }
