@@ -15,6 +15,10 @@ import { useRouter } from 'next/router';
 
 export default function ReviewPage({params}){
 
+  useEffect(() => {
+    
+    getArtistInfos().then(setArtistInfo)}, []);
+
   const apiKey = process.env.RAPID_API;
 
   const [artistInfo, setArtistInfo] = useState();
@@ -25,7 +29,6 @@ export default function ReviewPage({params}){
   const reviewArtist = useStore((state) => state.reviewArtist)
 
   const getArtistInfos = async () => {
-    const fetchData = async () => {
       const url =
         `https://spotify23.p.rapidapi.com/artist_overview/?id=${params.slug}`;
       const options = {
@@ -40,16 +43,12 @@ export default function ReviewPage({params}){
         const response = await fetch(url, options);
         const result = await response.json();
 
-        setArtistInfo(result.data.artist)
+        return result.data.artist;
       } catch (error) {
         console.error(error);
       }
-    };
-    fetchData();
+
   }
-
-  useEffect(() => getArtistInfos(), []);
-
 
   function addCommasToNumber(number) {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -59,6 +58,16 @@ export default function ReviewPage({params}){
     console.log(id);
   }
 
+  function truncateString(str, numWords) {
+    const words = str.split(' ');
+
+    if (words.length > numWords) {
+      const truncatedWords = words.slice(0, numWords);
+      return `${truncatedWords.join(' ')} ...`;
+    }
+
+    return str;
+  }
 
   if(artistInfo)
     return (
@@ -106,36 +115,17 @@ export default function ReviewPage({params}){
           <div className='absolute p-6 text-xl font-semibold rounded-full text-secondary-jetstream bg-primary-green h-fit top-0 -left-24'>8.7</div>
           <div>
             <fieldset className='border-2 border-primary-green rounded-2xl'>
-              <legend className='ml-4 p-2 text-xl font-semibold'>Featured Reviews</legend>
+              <legend className='ml-4 p-2 text-xl font-semibold'>Related Artists</legend>
               <div className='flex flex-col gap-2 p-4'>
-                  <div className='flex gap-2'>
-                    <Image src="/assets/user2.png" width={50} height={50} className='rounded-full'/>
-                    <div className='flex flex-col'>
-                      <div className='text-lg font-semibold'>Emily Johnson</div>
-                      <div className='text-sm'>"Absolutely love this song! The melo.."</div>
-                    </div>
+                {artistInfo?.relatedContent.relatedArtists.items.slice(0, 4).map((item) => {
+                  return <div className='flex gap-2'>
+                  <Image src={item.visuals.avatarImage.sources[0].url} width={45} height={45} className='rounded-lg'/>
+                  <div className='flex flex-col'>
+                    <Link href={`/review/artist/${item.id}`}><div className='cursor-pointer text-lg font-semibold'>{item.profile.name}</div></Link>
+                    <div>0 Reviews</div>
                   </div>
-                  <div className='flex gap-2'>
-                    <Image src="/assets/user3.png" width={50} height={50} className='rounded-full'/>
-                    <div className='flex flex-col'>
-                      <div className='text-lg font-semibold'>Alex Rodriguez</div>
-                      <div className='text-sm'>"Impressive work by the artist. The .."</div>
-                    </div>
-                  </div>
-                  <div className='flex gap-2'>
-                    <Image src="/assets/playboi.png" width={50} height={50} className='rounded-full'/>
-                    <div className='flex flex-col'>
-                      <div className='text-lg font-semibold'>Sarah Smith</div>
-                      <div className='text-sm'>"This song takes me on a journey.."</div>
-                    </div>
-                  </div>
-                  <div className='flex gap-2'>
-                    <Image src="/assets/user1.png" width={50} height={50} className='rounded-full'/>
-                    <div className='flex flex-col'>
-                      <div className='text-lg font-semibold'>David Thompson</div>
-                      <div className='text-sm'>"I've been a fan of the artist.."</div>
-                    </div>
-                  </div>
+                </div>
+                })}
                </div>
             </fieldset>
           </div>
@@ -144,41 +134,23 @@ export default function ReviewPage({params}){
         </div>
         <div>
           <div className=''>
-            <div className='text-2xl font-semibold text-primary-green'>Song Details</div>
+            <div className='text-2xl font-semibold text-primary-green'>About {artistInfo?.profile.name}</div>
             <div className='flex flex-col gap-4 py-4'>
               <div className=''>
-                <div className='mb-2 text-primary-green font-semibold text-xl'>Artist Name: {artistInfo?.profile.name}</div>
+                <div className='mb-2 text-primary-green font-semibold text-xl'>Biography</div>
+                <div className='text-primary-green'>{truncateString(artistInfo?.profile.biography.text, 60)}</div>
               </div>
               <div className='w-full flex justify-between gap-3 text-primary-green'>
                 <div className="w-full">
                   <table className=''>
                     <tbody>
                       <tr>
-                        <td className="pr-48 py-2 font-semibold">Title</td>
+                        <td className="pr-48 py-2 font-semibold">Artist Name</td>
                         <td className="px-4 py-2">{artistInfo?.profile.name}</td>
                       </tr>
                       <tr>
-                        <td className="pr-48 py-2 font-semibold">Artist</td>
-                        <td className="px-4 py-2">{artistInfo?.profile.name}</td>
-                      </tr>
-                      <tr>
-                        <td className="pr-48 py-2 font-semibold">Duration</td>
-                        <td className="px-4 py-2"></td>
-                      </tr>
-                      <tr>
-                        <td className="pr-48 py-2 font-semibold">Album Type</td>
-                        <td className="px-4 py-2"></td>
-                      </tr>
-                      <tr>
-                        <td className="pr-48 py-2 font-semibold">Release Date</td>
-                        <td className="px-4 py-2"></td>
-                      </tr>
-                      <tr>
-                        <td className="pr-48 py-2 font-semibold">Explicit</td>
-                        <td className="px-4 py-2"></td>
-                      </tr>
-                      <tr>
-                      
+                        <td className="pr-48 py-2 font-semibold">Monthly Listeners</td>
+                        <td className="px-4 py-2">{addCommasToNumber(artistInfo?.stats.monthlyListeners)} Listener</td>
                       </tr>
                     </tbody>
                   </table>
@@ -190,7 +162,7 @@ export default function ReviewPage({params}){
                     return <div className='flex gap-2'>
                       <Image src={item.track.album.coverArt.sources[0].url} className='rounded-xl' width={50} height={50}/>
                       <div className='flex flex-col justify-between'>
-                        <Link href={`http://localhost:3000/review/song/${item.track.id}`}><div className='text-lg cursor-pointer'>{item.track.name}</div></Link>
+                        <Link href={`/review/song/${item.track.id}`}><div className='text-lg cursor-pointer'>{truncateString(item?.track.name,4)}</div></Link>
                         <div className='flex gap-1 text-sm'><div className='font-semibold'>4,712</div>Review</div>
                       </div>
                     </div>
@@ -200,6 +172,9 @@ export default function ReviewPage({params}){
               </div>
             </div>
           </div>
+        </div>
+        <div>
+          
         </div>
         <div>
           <div className='text-2xl font-semibold text-primary-green mb-4'>Reviews</div>
