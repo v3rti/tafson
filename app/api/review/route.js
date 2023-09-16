@@ -21,6 +21,7 @@ export async function POST(req){
         rating: reviewData.rating,
         content: sanitizeHtml(reviewData.content),
         reviewType: reviewData.reviewType,
+        reviewId: reviewData.reviewId,
         createdAt: new Date("2022-03-25")
       });
 
@@ -39,13 +40,13 @@ export async function POST(req){
 }
 
 
-export async function GET(){
+export async function GET(req){
 
   await connectMongoDB();
+
 
   const reviews = await Review.find();
 
   return Response.json({reviews}, {status: 200})
-
 
 }

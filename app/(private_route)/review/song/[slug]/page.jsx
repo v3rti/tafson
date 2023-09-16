@@ -53,6 +53,7 @@ export default function ReviewPage({params}){
         rating,
         content,
         reviewType: "song",
+        reviewId: params.slug,
       };
 
       const response = await fetch('/api/review', {
@@ -93,7 +94,7 @@ export default function ReviewPage({params}){
   
   const fetchReviews = async () => {
     
-    const response = await fetch('/api/review', {
+    const response = await fetch(`/api/review`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -176,7 +177,20 @@ export default function ReviewPage({params}){
     return word.charAt(0).toUpperCase() + word.slice(1);
   }
   
-  console.log("the song is:" ,song)  
+
+  const renderDivs = (count) => {
+    const divs = [];
+  
+    for (let i = 0; i < count; i++) {
+      const key = `div-${i}`;
+
+      divs.push(<BsStarFill key={i}className='w-6 h-6' />);
+    }
+  
+    return divs;
+  };
+
+  console.log("these are the reviews i got" ,fetchedReview)  
   if(song){
     console.log("these are the artist infos:",artistInfo);
     return (
@@ -362,7 +376,7 @@ export default function ReviewPage({params}){
             </form>
           </div>
           <div className='w-full border-b-4 border-primary-green py-3 mb-4'></div>
-          {fetchedReview ? fetchedReview.reviews.map(review => {
+          {fetchedReview ? fetchedReview.reviews.filter((review) => review.reviewId === params.slug).map(review => {
             return <div className='flex flex-col gap-3 mb-4'>
             <div className='flex gap-2 text-primary-green'>
               <Image src="/assets/playboi.png" width={70} height={70} className='rounded-full'/>
@@ -370,11 +384,7 @@ export default function ReviewPage({params}){
                 <div className='text-xl font-semibold'>Sarah Smith</div>
                 <div className='text-sm'>Member Since 2018</div>
                 <div className='flex gap-1 text-primary-green'>
-                  <BsStarFill className='w-5 h-5'/>
-                  <BsStarFill className='w-5 h-5'/>
-                  <BsStarFill className='w-5 h-5'/>
-                  <BsStarFill className='w-5 h-5'/>
-                  <BsStarFill className='w-5 h-5'/>
+                  {renderDivs(review.rating)}
                 </div>
               </div>  
             </div>

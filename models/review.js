@@ -4,6 +4,7 @@ const reviewSchema = new Schema({
   email: {
     type: String,
     required: true,
+    unique: false,
     trim: true,
   },
   rating: {
@@ -23,8 +24,11 @@ const reviewSchema = new Schema({
   reviewType: {
     type: String,
     required: true,
-    unique: true,
     trim: true,
+  },
+  reviewId: {
+    type: String,
+    required: true,
   }
 });
 
