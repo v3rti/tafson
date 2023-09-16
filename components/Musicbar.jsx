@@ -117,6 +117,19 @@ export default function NewMusicBar() {
     console.log(currentlyPlaying);
   };
 
+  const playPreviousSong = () => {
+    console.log(currentlyPlaying);
+    if (currentSongIndex > 0) {
+      const image = playQueue[currentSongIndex].album.images[0].url; // Replace with appropriate image size
+      const name = playQueue[currentSongIndex].name;
+      const artist = playQueue[currentSongIndex].artists[0].name;
+      setCurrentSongIndex(currentSongIndex - 1);
+      setCurrentlyPlaying(playQueue[currentSongIndex].preview_url);
+      setCurrentSongInfos({ image, name, artist });
+    }
+    console.log(currentlyPlaying);
+  };
+
 
   return (
     <div className={`${isAuth ? "z-30 flex flex-row items-center justify-between gap-36 px-20 w-full bg-primary-green h-16 bottom-0 fixed" : "hidden"}`}>
@@ -132,7 +145,7 @@ export default function NewMusicBar() {
         </audio>
       </div>
       <div className="flex flex-row items-center gap-2">
-        <div>
+        <div onClick={playPreviousSong}>
           <MdSkipPrevious className="w-6 h-6 text-white" />
         </div>
         {isPlaying ? (

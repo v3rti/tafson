@@ -24,12 +24,11 @@ export default function RecommendedSongs(){
   const handlePlayClick = (previewLink, song) => {
     setCurrentlyPlaying(previewLink);
     setIsPlaying(true);
-    const image = song.album.images[0].url; // Replace with appropriate image size
+    const image = song.album.images[0].url;
     const name = song.name;
-    const artist = song.artists[0].name; // Assuming only one artist
+    const artist = song.artists[0].name;
     setCurrentSongInfos({ image, name, artist });
-    console.log('Setting currentlyPlaying:', previewLink); 
-    
+    console.log('Setting currentlyPlaying:', previewLink);  
   };
 
 
@@ -48,11 +47,9 @@ export default function RecommendedSongs(){
       try {
         const response = await fetch(url, options);
         const data = await response.json();
-        // Extract the "tracks" array from the data
         const tracks = data.tracks;
-        // Slice the first 8 songs from the array
         setSongs(tracks.slice(0, 8));
-        setPlayQueue(tracks.slice(0, 8))
+        setPlayQueue(tracks.slice(0, 8).filter((song) => song.preview_url !== null))
       } catch (error) {
         console.error(error);
       }

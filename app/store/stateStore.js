@@ -19,7 +19,9 @@ const store = (set) => ({
   playQueue: [],
   setPlayQueue: (value) => set({playQueue: value}),
   currentSongIndex:0,
-  setCurrentSongIndex: (value) => set({currentSongIndex: value})
+  setCurrentSongIndex: (value) => set({currentSongIndex: value}),
+  reviewArtist: null,
+  setReviewArtist: (value) => set({reviewArtist: value})
 })
 
 
