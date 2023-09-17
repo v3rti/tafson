@@ -44,7 +44,7 @@ export default function Search({params}){
   console.log("results are", searchResults);
 
   if(searchResults) return (
-    <div className="mx-48 p-10">
+    <div className="mx-48 p-10 pb-36">
       <div className="font-semibold text-3xl text-primary-green">Search results: </div>
       <div className="flex flex-col gap-4">
         <div className='flex flex-col mt-8 gap-4'>

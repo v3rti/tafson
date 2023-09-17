@@ -15,6 +15,7 @@ export default function Searchbar(){
 
   const handleSearch = (e) => {
      e.preventDefault();
+     setSearchInput(null);
     router.push(`/search/${searchInput}`);
   }
 

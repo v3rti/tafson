@@ -49,7 +49,7 @@ export default function NavbarIn(){
           <Searchbar />
         </div>
         <div className="w-4/12 flex flex-row gap-12 items-center text-white">
-          <Link href="/library"><div className='flex flex-row items-center gap-2 cursor-pointer text-sm'><MdLibraryMusic className='w-5 h-5'/>Reviews</div></Link>
+          <Link href="/reviews"><div className='flex flex-row items-center gap-2 cursor-pointer text-sm'><MdLibraryMusic className='w-5 h-5'/>Reviews</div></Link>
           <div className='flex flex-row items-center gap-2 cursor-pointer text-sm'><RiPlayListFill className='w-5 h-5'/>Music Discovery</div>
           
           <div className='flex flex-row items-center gap-2 cursor-pointer text-sm'><IoMdMicrophone className='w-5 h-5'/>Podcasts</div>

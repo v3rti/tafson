@@ -19,6 +19,7 @@ export default function HomePage(){
   const {data, status} = useSession();
 
   const isAuth = status === "authenticated";
+  const exists = data?.firstName !== null;
   
   const isUserLogged = useStore((state) => state.isUserLogged);
   const isSignUpPop = useStore((state) => state.isSignUpPop);
@@ -28,13 +29,13 @@ export default function HomePage(){
   return (
     <div className={`relative h-full ${isSignUpPop || isLoginPop ? "overflow-hidden	" : ""}`}>
         
-        {isAuth ? <BodyIn /> : <DemoBody /> }
+        {exists ? <BodyIn /> : <DemoBody /> }
         {/* <Footer /> */}
         {/* <MyLibrary /> */}
         {/* {isAuth ? <Musicbar /> : <div></div>} */}
         {isSignUpPop ? <CreateAccount /> : ""}
         {isLoginPop ? <LoginForm /> : ""}
-        <Footer />
+        
     </div>
   )
 }

@@ -268,7 +268,7 @@ const renderDivs = (count) => {
             <div className='flex flex-col gap-4 py-4'>
               <div className=''>
                 <div className='mb-2 text-primary-green font-semibold text-xl'>Biography</div>
-                <div className='text-primary-green'>{truncateString(artistInfo?.profile.biography.text, 60)}</div>
+                <div className='text-primary-green'>{artistInfo?.profile?.biography?.text ? truncateString(artistInfo?.profile.biography.text, 60) : "No Biography"}</div>
               </div>
               <div className='w-full flex justify-between gap-3 text-primary-green'>
                 <div className="w-full">
@@ -293,7 +293,7 @@ const renderDivs = (count) => {
                       <Image src={item.track.album.coverArt.sources[0].url} className='rounded-xl' width={50} height={50}/>
                       <div className='flex flex-col justify-between'>
                         <Link href={`/review/song/${item.track.id}`}><div className='text-lg cursor-pointer'>{truncateString(item?.track.name,4)}</div></Link>
-                        <div className='flex gap-1 text-sm'><div className='font-semibold'>4,712</div>Review</div>
+                        <div className='flex gap-1 text-sm'><div className='font-semibold'></div></div>
                       </div>
                     </div>
                   })}
