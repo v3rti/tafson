@@ -209,7 +209,7 @@ export default function CreateAccount(){
                         <div onClick={() => signIn('google')} className='cursor-pointer px-3 flex gap-3 py-3 items-center text-black bg-secondary-jetstream text-xl rounded-lg w-8/12'>
                             <AiFillGoogleCircle className="h-8 w-8 text-primary-green"/> Continue using Google
                         </div>
-                        <div className='px-3 flex gap-3 py-3 items-center text-black bg-secondary-jetstream text-xl rounded-lg w-8/12'>
+                        <div onClick={() => signIn('twitter')} className='cursor-pointer px-3 flex gap-3 py-3 items-center text-black bg-secondary-jetstream text-xl rounded-lg w-8/12'>
                             <AiFillTwitterCircle className="h-8 w-8 text-primary-green"/> Continue using Twitter
                         </div>
                     </div>

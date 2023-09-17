@@ -59,15 +59,7 @@ export default function BodyIn(){
             <OtherPlaylists playlistId="37i9dQZF1DXcBWIGoYBM5M"/>
           </div>
         </div>
-        <div>
-          <div className='py-4 mt-8 font-bold text-primary-green text-2xl'>
-          Recommended Artists
-          </div>
-          <div className='flex justify-center gap-6'>
-            {/* <ArtistsCards /> */}
-          </div>
-        </div>
-        <audio></audio>
+        
     </div>
   )
 }

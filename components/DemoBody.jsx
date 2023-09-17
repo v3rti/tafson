@@ -5,6 +5,7 @@ import { useStore } from '@app/store/stateStore';
 import {AiFillPlayCircle} from 'react-icons/ai';
 
 import Image from 'next/image';
+import Footer from './Footer';
 
 export default function DemoBody(){
   
@@ -41,41 +42,11 @@ export default function DemoBody(){
         </div>
       </div>
     </div>
-    <div>
+    <div className='mb-24'>
       <div></div>
-      <div className='mx-40 pb-40 flex gap-8 justify-center mt-12'>
-        {/* Music Genres Cards */}
-        <div className=''>
-          <div className='relative bg-primary-green w-64 h-64 rounded-xl p-4'>
-            <Image className="absolute rounded-xl w-full z-10" width={240} height={60} src="/assets/hipHop.png"/>
-          </div>
-          <div className='mt-8 font-semibold text-primary-green text-2xl '>Hip Hop</div>
-        </div>
-        <div className=''>
-          <div className='relative bg-primary-green w-64 h-64 rounded-xl p-4'>
-            <Image className="absolute rounded-xl w-full z-10" width={240} height={60} src="/assets/hipHop.png"/>
-          </div>
-          <div className='mt-8 font-semibold text-primary-green text-2xl '>Hip Hop</div>
-        </div>
-        <div className=''>
-          <div className='relative bg-primary-green w-64 h-64 rounded-xl p-4'>
-            <Image className="absolute rounded-xl w-full z-10" width={240} height={60} src="/assets/hipHop.png"/>
-          </div>
-          <div className='mt-8 font-semibold text-primary-green text-2xl '>Hip Hop</div>
-        </div>
-        <div className=''>
-          <div className='relative bg-primary-green w-64 h-64 rounded-xl p-4'>
-            <Image className="absolute rounded-xl w-full z-10" width={240} height={60} src="/assets/hipHop.png"/>
-          </div>
-          <div className='mt-8 font-semibold text-primary-green text-2xl '>Hip Hop</div>
-        </div>
-        <div className=''>
-          <div className='relative bg-primary-green w-64 h-64 rounded-xl p-4'>
-            <Image className="absolute rounded-xl w-full z-10" width={240} height={60} src="/assets/hipHop.png"/>
-          </div>
-          <div className='mt-8 font-semibold text-primary-green text-2xl '>Hip Hop</div>
-        </div>
-      </div>
+      
+      
     </div>
+    <Footer />
   </div>)
 }

@@ -52,7 +52,7 @@ export default function Search({params}){
             return <div>
             <div className="flex flex-row justify-between items-center font-semibold ">
             <div className="flex gap-2 w-6/12">
-              <Image className="rounded-xl" src={res.data.visuals.avatarImage.sources[0].url} width={140} height={140}/>
+              <Image className="rounded-xl" src={res?.data?.visuals?.avatarImage?.sources[0].url} width={140} height={140}/>
               <div className='text-primary-green'>
                 <Link href={`/review/artist/${getIdArtist(res.data.uri)}`} className='text-2xl w-fit'>{res.data.profile.name}</Link>
                 <div className=' font-semibold'>Artist</div>
