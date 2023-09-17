@@ -1,3 +1,4 @@
+'use client'
 import '@styles/globalStyles.css'
 
 import Image from 'next/image';
@@ -15,7 +16,6 @@ export default function BodyIn(){
 
   const {data} = useSession();
 
-  console.log("user data is:", data);
   return (
     <div className='mx-20 mt-10 pb-20'>
       {/* Main Cards */}
@@ -55,8 +55,8 @@ export default function BodyIn(){
           <div className='text-2xl font-semibold mb-4'>Featured Playlists</div>
           <div className='flex gap-8 flex-wrap '>
             <Playlist />
-            <OtherPlaylists />
-            <OtherPlaylists />
+            <OtherPlaylists playlistId="37i9dQZF1DX0XUsuxWHRQd"/>
+            <OtherPlaylists playlistId="37i9dQZF1DXcBWIGoYBM5M"/>
           </div>
         </div>
         <div>

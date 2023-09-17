@@ -239,7 +239,7 @@ const renderDivs = (count) => {
             
           </div>
           <div className='relative flex flex-col gap-2 w-3/12'>
-          <div className='absolute p-6 text-xl font-semibold rounded-full text-secondary-jetstream bg-primary-green h-fit top-0 -left-24'>{Number(artistRating.toFixed(2))}</div>
+          <div className='absolute p-6 text-xl font-semibold rounded-full text-secondary-jetstream bg-primary-green h-fit top-0 -left-24'>{Number(artistRating?.toFixed(2))}</div>
           <div>
             <fieldset className='border-2 border-primary-green rounded-2xl'>
               <legend className='ml-4 p-2 text-xl font-semibold'>Related Artists</legend>
