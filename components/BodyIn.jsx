@@ -10,6 +10,7 @@ import OtherPlaylists from './OtherPlaylists';
 // import ArtistsCards from './ArtistsCards';
 import RecommendedSongs from './RecommendedSongs';
 import { useSession } from 'next-auth/react';
+import Head from 'next/head';
 
 
 export default function BodyIn(){
@@ -18,6 +19,9 @@ export default function BodyIn(){
 
   return (
     <div className='mx-20 mt-10 pb-20'>
+      <Head>
+        <title>Tafson - Stay up-to-date with the latest </title>
+      </Head>
       {/* Main Cards */}
       <div className="w-full flex flex-row gap-10 h-full text-white">
          {/* Today's Hits Card */}

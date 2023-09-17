@@ -11,7 +11,7 @@ import CreateAccount from "@components/CreateAccount";
 import Footer from "@components/Footer";
 import LoginForm from "@components/LoginForm";
 import { useSession } from "next-auth/react";
-
+import Head from 'next/head'
 
 export default function HomePage(){
 
@@ -28,7 +28,9 @@ export default function HomePage(){
 
   return (
     <div className={`relative h-full ${isSignUpPop || isLoginPop ? "overflow-hidden	" : ""}`}>
-        
+        <Head>
+          <title>Tafson - Stay up-to-date with the latest</title>
+        </Head>
         {isAuth ? <BodyIn /> : <DemoBody /> }
         {/* <Footer /> */}
         {/* <MyLibrary /> */}
