@@ -25,11 +25,11 @@ export default function ReviewPage({params}){
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [content, setContent] = useState("");
-  const [rating, setRating] = useState(1);
+  const [rating, setRating] = useState();
   const [fetchedReview, setFetchedReview] = useState();
 
   const ratingOptions = [1, 2, 3, 4, 5];
-  const [selectedRating, setSelectedRating] = useState('');
+  const [songRating, setSongRating] = useState('');
   
   const handleRatingChange = (event) => {
     setRating(event.target.value);
@@ -51,6 +51,11 @@ export default function ReviewPage({params}){
 
     if (!content) {
       setError("Please write a review first!")
+      return;
+    }
+
+    if (!rating){
+      setError("Please pick a rating!");
       return;
     }
 
@@ -78,7 +83,8 @@ export default function ReviewPage({params}){
         setError("Review has been submitted successfully!")
         setContent("");
         setRating(0);
-      } else if (response.status === 201){
+        fetchReviews().then(setFetchedReview);
+      } else{
 
         const errorData = await response.json();
         setError(errorData.message); 
@@ -200,6 +206,37 @@ export default function ReviewPage({params}){
     return divs;
   };
 
+
+  function calculateArtistRating(userRatings) {
+    const totalRatings = userRatings.length;
+  
+    if (totalRatings === 0) {
+      return 0;
+    }
+
+    const sumRatings = userRatings.reduce((sum, rating) => sum + rating, 0);
+    const averageUserRating = sumRatings / totalRatings;
+
+    const maxUserRating = 5;
+    const maxArtistRating = 10;
+    const artistRating = (averageUserRating / maxUserRating) * maxArtistRating;
+  
+    return artistRating;
+  }
+
+  useEffect(() => {
+    if (fetchedReview) {
+      const userRatings = fetchedReview.reviews
+        .filter((review) => review.reviewId === params.slug)
+        .map((review) => review.rating);
+
+      const rating = calculateArtistRating(userRatings);
+      setSongRating(rating);
+    }
+  }, [fetchedReview, params.slug]);
+
+
+
   console.log("these are the reviews i got" ,fetchedReview)  
   if(song){
     console.log("these are the artist infos:",artistInfo);
@@ -255,7 +292,7 @@ export default function ReviewPage({params}){
             
           </div>
           <div className='relative flex flex-col gap-2 w-3/12'>
-          <div className='absolute p-6 text-xl font-semibold rounded-full text-secondary-jetstream bg-primary-green h-fit top-0 -left-24'>8.7</div>
+          <div className='absolute p-6 text-xl font-semibold rounded-full text-secondary-jetstream bg-primary-green h-fit top-0 -left-24'>{Number(songRating.toFixed(2))}</div>
           <div>
             <fieldset className='border-2 border-primary-green rounded-2xl'>
               <legend className='ml-4 p-2 text-xl font-semibold'>Featured Reviews</legend>
@@ -404,7 +441,7 @@ export default function ReviewPage({params}){
               <Image src="/assets/default_profile.png" width={70} height={70} className='rounded-full'/>
               <div className='flex flex-col'>
                 <div className='text-xl font-semibold'>{review.firstName}</div>
-                <div className='text-sm'>Member Since 2018</div>
+                <div className='text-sm'></div>
                 <div className='flex gap-1 text-primary-green'>
                   {renderDivs(review.rating)}
                 </div>

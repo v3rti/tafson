@@ -150,13 +150,10 @@ export default function LoginForm(){
                     
                     <div className='text-secondary-jetstream text-sm flex gap-1'>Don't have an account?<button onClick={handleSignUpHere}className='underline'> Sign up here</button></div>
                     <div className='border-b-2 border-secondary-jetstream w-10/12'></div>
-                    <div className='px-3 flex gap-3 py-3 items-center text-black bg-secondary-jetstream text-xl rounded-lg w-8/12'>
+                    <div onClick={() => signIn('google')} className='px-3 flex gap-3 py-3 items-center text-black bg-secondary-jetstream text-xl rounded-lg w-8/12 cursor-pointer'>
                         <AiFillGoogleCircle className="h-8 w-8 text-primary-green"/> Continue using Google
                     </div>
-                    <div className='px-3 flex gap-3 py-3 items-center text-black bg-secondary-jetstream text-xl rounded-lg w-8/12'>
-                        <BsFacebook className="h-8 w-8 text-primary-green"/>Continue using Facebook
-                    </div>
-                    <div className='px-3 flex gap-3 py-3 items-center text-black bg-secondary-jetstream text-xl rounded-lg w-8/12'>
+                    <div onClick={() => signIn('twitter')}className='px-3 flex gap-3 py-3 items-center text-black bg-secondary-jetstream text-xl rounded-lg w-8/12 cursor-pointer'>
                         <AiFillTwitterCircle className="h-8 w-8 text-primary-green"/> Continue using Twitter
                     </div>
                 </div>

@@ -6,6 +6,7 @@ import {AiFillGoogleCircle, AiFillTwitterCircle, AiOutlineClose} from 'react-ico
 import {BsFacebook} from 'react-icons/bs';
 import {useStore} from '../app/store/stateStore';
 import { useState, useEffect } from 'react';
+import { signIn } from 'next-auth/react';
 
 
 export default function CreateAccount(){
@@ -205,11 +206,8 @@ export default function CreateAccount(){
                     <div className='border-b-2 border-secondary-jetstream w-10/12'></div>
                     <button className={`${hideOptions ? 'px-3 flex gap-3 py-3 items-center text-primary-green bg-secondary-jetstream text-lg font-semibold rounded-lg w-8/12 justify-center' : 'hidden'}`} onClick={toggleOptions}>Explore More Options</button>
                     <div className={`${hideOptions ? 'hidden' : 'flex flex-col w-full gap-4 justify-center items-center'}`}>
-                        <div className='px-3 flex gap-3 py-3 items-center text-black bg-secondary-jetstream text-xl rounded-lg w-8/12'>
+                        <div onClick={() => signIn('google')} className='cursor-pointer px-3 flex gap-3 py-3 items-center text-black bg-secondary-jetstream text-xl rounded-lg w-8/12'>
                             <AiFillGoogleCircle className="h-8 w-8 text-primary-green"/> Continue using Google
-                        </div>
-                        <div className='px-3 flex gap-3 py-3 items-center text-black bg-secondary-jetstream text-xl rounded-lg w-8/12'>
-                            <BsFacebook className="h-8 w-8 text-primary-green"/>Continue using Facebook
                         </div>
                         <div className='px-3 flex gap-3 py-3 items-center text-black bg-secondary-jetstream text-xl rounded-lg w-8/12'>
                             <AiFillTwitterCircle className="h-8 w-8 text-primary-green"/> Continue using Twitter

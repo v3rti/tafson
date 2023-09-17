@@ -8,9 +8,14 @@ import Playlist from './Playlist';
 import OtherPlaylists from './OtherPlaylists';
 import ArtistsCards from './ArtistsCards';
 import RecommendedSongs from './RecommendedSongs';
+import { useSession } from 'next-auth/react';
 
 
 export default function BodyIn(){
+
+  const {data} = useSession();
+
+  console.log("user data is:", data);
   return (
     <div className='mx-20 mt-10 pb-20'>
       {/* Main Cards */}
@@ -59,11 +64,7 @@ export default function BodyIn(){
           Recommended Artists
           </div>
           <div className='flex justify-center gap-6'>
-            <ArtistsCards imageLink="kanye.png"/>
-            <ArtistsCards imageLink="tylor.png"/>
-            <ArtistsCards imageLink="draganov.png"/>
-            <ArtistsCards imageLink="jojix.png"/>
-            <ArtistsCards imageLink="playboi.png"/>
+            <ArtistsCards />
           </div>
         </div>
         <audio></audio>

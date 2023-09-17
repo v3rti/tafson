@@ -2,10 +2,11 @@ import connectMongoDB from '@libs/mongodb'
 import Review from '@models/review'
 import User from '@models/user';
 import sanitizeHtml from 'sanitize-html';
+import { useSession } from 'next-auth/react';
 
 
 export async function POST(req){
-
+  
   await connectMongoDB();
 
   const reviewData = await req.json();
@@ -13,11 +14,11 @@ export async function POST(req){
   const existingUser = await User.findOne({'email': reviewData.email});
 
 
-  if (existingUser) {
+  if (existingUser || true) {
 
     try {    
       const review = new Review({
-        email: reviewData.email,
+        email: reviewData.email || `${reviewData.firstName}@twitter.com`,
         firstName: reviewData.firstName,
         rating: reviewData.rating,
         content: sanitizeHtml(reviewData.content),

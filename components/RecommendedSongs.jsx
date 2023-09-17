@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import {useStore} from '@app/store/stateStore';
 
 import {AiFillPlayCircle} from 'react-icons/ai';
+import Link from "next/link";
 
 export default function RecommendedSongs(){
 
@@ -74,7 +75,7 @@ export default function RecommendedSongs(){
             <AiFillPlayCircle className="w-20 h-20 text-primary-green" />
           </div>
         </div>
-        <div className='mt-1 font-semibold text-lg song-title'>{song.name}</div>
+        <div className='mt-1 font-semibold text-lg song-title'><Link href={`/review/song/${song.id}`}>{song.name}</Link></div>
         <div className='-mt-1 font-semibold text-sm'>{song.artists[0].name}</div>
       </div>
     ))}

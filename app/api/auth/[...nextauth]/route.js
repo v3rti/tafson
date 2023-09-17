@@ -2,6 +2,21 @@ import connectMongoDB from "@libs/mongodb";
 import User from "@models/user";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
+import TwitterProvider from "next-auth/providers/twitter";
+
+
+function firstWord(inputString) {
+  const words = inputString.split(/\s+/);
+  if (words.length > 0) {
+    return words[0];
+  } else {
+    return '';
+  }
+}
+
+// Example usage:
+const inputString = 'This is a sample string';
 
 export const authOptions = {
   session: {
@@ -27,19 +42,29 @@ export const authOptions = {
         }
       }
 
+    }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET
+    }),
+    TwitterProvider({
+      clientId: process.env.TWITTER_ID,
+      clientSecret: process.env.TWITTER_SECRET,
+      version: "2.0", 
     })
   ],
   callbacks: {
     jwt(params) {
       if(params.user?.userId){
         params.token.firstName = params.user.firstName;
+        params.token.name = params.user.name;
         params.token.email = params.user.email;
       }
       return params.token;
     },
     session({session, token}){
       if(session.user){
-        session.user.firstName = token.firstName
+        session.user.firstName = token.firstName || firstWord(token.name);
         session.user.email = token.email
       }
       return session;

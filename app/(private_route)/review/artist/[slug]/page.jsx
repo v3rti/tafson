@@ -37,6 +37,7 @@ export default function ReviewPage({params}){
   const [rating, setRating] = useState(0);
   const [fetchedReview, setFetchedReview] = useState();
   
+  const [artistRating, setArtistRating] = useState();
 
   const ratingOptions = [1, 2, 3, 4, 5];
   const [selectedRating, setSelectedRating] = useState('');
@@ -104,6 +105,11 @@ const renderDivs = (count) => {
       return;
     }
 
+    if(!rating){
+      setError("Please pick a rating!")
+      return;
+    }
+
     setLoading(true);
 
     try {
@@ -127,7 +133,8 @@ const renderDivs = (count) => {
       if (response.status === 200) {
         setError("Review has been submitted successfully!")
         setContent("");
-        setRating(4);
+        setRating(0);
+        fetchReviews().then(setFetchedReview);
       } else if (response.status === 201){
 
         const errorData = await response.json();
@@ -160,6 +167,34 @@ const renderDivs = (count) => {
 
     return str;
   }
+
+  function calculateArtistRating(userRatings) {
+    const totalRatings = userRatings.length;
+  
+    if (totalRatings === 0) {
+      return 0;
+    }
+
+    const sumRatings = userRatings.reduce((sum, rating) => sum + rating, 0);
+    const averageUserRating = sumRatings / totalRatings;
+
+    const maxUserRating = 5;
+    const maxArtistRating = 10;
+    const artistRating = (averageUserRating / maxUserRating) * maxArtistRating;
+  
+    return artistRating;
+  }
+
+  useEffect(() => {
+    if (fetchedReview) {
+      const userRatings = fetchedReview.reviews
+        .filter((review) => review.reviewId === params.slug)
+        .map((review) => review.rating);
+
+      const rating = calculateArtistRating(userRatings);
+      setArtistRating(rating);
+    }
+  }, [fetchedReview, params.slug]);
 
   if(artistInfo)
     return (
@@ -204,7 +239,7 @@ const renderDivs = (count) => {
             
           </div>
           <div className='relative flex flex-col gap-2 w-3/12'>
-          <div className='absolute p-6 text-xl font-semibold rounded-full text-secondary-jetstream bg-primary-green h-fit top-0 -left-24'>8.7</div>
+          <div className='absolute p-6 text-xl font-semibold rounded-full text-secondary-jetstream bg-primary-green h-fit top-0 -left-24'>{Number(artistRating.toFixed(2))}</div>
           <div>
             <fieldset className='border-2 border-primary-green rounded-2xl'>
               <legend className='ml-4 p-2 text-xl font-semibold'>Related Artists</legend>
@@ -312,7 +347,7 @@ const renderDivs = (count) => {
               <Image src="/assets/default_profile.png" width={70} height={70} className='rounded-full'/>
               <div className='flex flex-col'>
                 <div className='text-xl font-semibold'>{review.firstName}</div>
-                <div className='text-sm'>Member Since 2018</div>
+                <div className='text-sm'></div>
                 <div className='flex gap-1 text-primary-green'>
                   {renderDivs(review.rating)}
                 </div>
