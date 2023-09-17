@@ -6,7 +6,7 @@ import {AiFillPlayCircle} from 'react-icons/ai';
 
 import Playlist from './Playlist';
 import OtherPlaylists from './OtherPlaylists';
-import ArtistsCards from './ArtistsCards';
+// import ArtistsCards from './ArtistsCards';
 import RecommendedSongs from './RecommendedSongs';
 import { useSession } from 'next-auth/react';
 
@@ -64,7 +64,7 @@ export default function BodyIn(){
           Recommended Artists
           </div>
           <div className='flex justify-center gap-6'>
-            <ArtistsCards />
+            {/* <ArtistsCards /> */}
           </div>
         </div>
         <audio></audio>
