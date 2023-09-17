@@ -55,13 +55,13 @@ export default function NavbarIn(){
           <div className='flex flex-row items-center gap-2 cursor-pointer text-sm'><IoMdMicrophone className='w-5 h-5'/>Podcasts</div>
         </div>
         <div className="w-fit flex flex-row gap-12 items-center text-white px-8">
-        {isAuth ? <Link href="/profile"><div className='flex flex-row items-center gap-2 cursor-pointer text-sm'>
+        {isAuth ? <div ><div className='flex flex-row items-center gap-2 cursor-pointer text-sm'>
         <RxAvatar className='w-6 h-6'/>
         <div className='flex gap-1 w-full'>
           <div>Welcome,</div>
           <div>{data?.user?.firstName}</div>
         </div>
-        </div></Link> : ""}
+        </div></div> : ""}
         <button onClick={() => signOut()} className='cursor-pointer text-sm'>Logout</button>
         </div>
       </nav>

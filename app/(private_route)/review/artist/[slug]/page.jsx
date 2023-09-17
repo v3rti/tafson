@@ -23,6 +23,7 @@ export default function ReviewPage({params}){
   const apiKey = process.env.RAPID_API;
 
   const [artistInfo, setArtistInfo] = useState();
+  const [reviewsNumber, setReviewsNumber] = useState();
 
   const {data, status} = useSession();
 
@@ -193,6 +194,8 @@ const renderDivs = (count) => {
 
       const rating = calculateArtistRating(userRatings);
       setArtistRating(rating);
+      setReviewsNumber(fetchedReview.reviews
+        .filter((review) => review.reviewId === params.slug).length);
     }
   }, [fetchedReview, params.slug]);
 
@@ -221,8 +224,8 @@ const renderDivs = (count) => {
                   <BsStarHalf className='w-6 h-6' />
                 </div>
                 <div className='flex text-lg gap-2'>
-                  <div className='font-semibold'>7,331</div>
-                  <div>Rating</div>
+                  <div className='font-semibold'>{reviewsNumber || 0}</div>
+                  <div>Ratings</div>
                 </div>
               </div>
               <div className='bg-primary-green px-6 py-2 text-secondary-jetstream w-fit rounded-xl'>Rate & Review</div>

@@ -22,6 +22,7 @@ export default function ReviewPage({params}){
 
   const email = data?.user?.email;
   
+  const [reviewsNumber, setReviewsNumber] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [content, setContent] = useState("");
@@ -232,6 +233,7 @@ export default function ReviewPage({params}){
 
       const rating = calculateArtistRating(userRatings);
       setSongRating(rating);
+      setReviewsNumber(fetchedReview.reviews.filter((review) => review.reviewId === params.slug).length);
     }
   }, [fetchedReview, params.slug]);
 
@@ -274,8 +276,8 @@ export default function ReviewPage({params}){
                   <BsStarHalf className='w-6 h-6' />
                 </div>
                 <div className='flex text-lg gap-2'>
-                  <div className='font-semibold'>7,331</div>
-                  <div>Rating</div>
+                  <div className='font-semibold'>{reviewsNumber || 0}</div>
+                  <div>Ratings</div>
                 </div>
               </div>
               <div className='bg-primary-green px-6 py-2 text-secondary-jetstream w-fit rounded-xl'>Rate & Review</div>
@@ -292,9 +294,9 @@ export default function ReviewPage({params}){
             
           </div>
           <div className='relative flex flex-col gap-2 w-3/12'>
-          <div className={`${songRating ? 'absolute p-6 text-xl font-semibold rounded-full text-secondary-jetstream bg-primary-green h-fit top-0 -left-24' : 'hidden'}`}>{Number(songRating?.toFixed(2))}</div>
+          <div className={`${songRating ? 'absolute p-6 text-xl font-semibold rounded-full text-secondary-jetstream bg-primary-green h-fit top-0 -left-24' : 'hidden'}`}>{songRating ? Number(songRating?.toFixed(2)) : ""}</div>
           <div>
-            <fieldset className='border-2 border-primary-green rounded-2xl'>
+            {/* <fieldset className='border-2 border-primary-green rounded-2xl'>
               <legend className='ml-4 p-2 text-xl font-semibold'>Featured Reviews</legend>
               <div className='flex flex-col gap-2 p-4'>
                   <div className='flex gap-2'>
@@ -326,7 +328,7 @@ export default function ReviewPage({params}){
                     </div>
                   </div>
                </div>
-            </fieldset>
+            </fieldset> */}
           </div>
           
           </div>
