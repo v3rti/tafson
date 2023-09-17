@@ -29,7 +29,7 @@ export default function HomePage(){
   return (
     <div className={`relative h-full ${isSignUpPop || isLoginPop ? "overflow-hidden	" : ""}`}>
         
-        {exists ? <BodyIn /> : <DemoBody /> }
+        {isAuth ? <BodyIn /> : <DemoBody /> }
         {/* <Footer /> */}
         {/* <MyLibrary /> */}
         {/* {isAuth ? <Musicbar /> : <div></div>} */}
