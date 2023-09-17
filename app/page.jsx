@@ -12,6 +12,7 @@ import Footer from "@components/Footer";
 import LoginForm from "@components/LoginForm";
 import { useSession } from "next-auth/react";
 import Head from 'next/head'
+import Link from "next/link";
 
 export default function HomePage(){
 
@@ -26,18 +27,27 @@ export default function HomePage(){
   const isLoginPop = useStore((state) => state.isLoginPop);
   // const [userLogged, setUserLogged] = useState(false);
 
+  // {isAuth ? <BodyIn /> : <DemoBody /> }
+  //       {/* <Footer /> */}
+  //       {/* <MyLibrary /> */}
+  //       {/* {isAuth ? <Musicbar /> : <div></div>} */}
+  //       {isSignUpPop ? <CreateAccount /> : ""}
+  //       {isLoginPop ? <LoginForm /> : ""}
+
   return (
     <div className={`relative h-full ${isSignUpPop || isLoginPop ? "overflow-hidden	" : ""}`}>
         <Head>
           <title>Tafson - Stay up-to-date with the latest</title>
         </Head>
-        {isAuth ? <BodyIn /> : <DemoBody /> }
-        {/* <Footer /> */}
-        {/* <MyLibrary /> */}
-        {/* {isAuth ? <Musicbar /> : <div></div>} */}
-        {isSignUpPop ? <CreateAccount /> : ""}
-        {isLoginPop ? <LoginForm /> : ""}
-        
+        <div className=" text-3xl text-secondary-jetstream mb-4">
+          Tafson by Amine. Under Developement.
+        </div>
+        <div className=" text-4xl text-secondary-jetstream mb-4">
+          Github Repository: <Link href="https://github.com/v3rti/tafson" className="underline">Tafson</Link>
+        </div>
+        <div className=" text-2xl text-secondary-jetstream">
+          Contact me at: med.bagui.1@gmail.com
+        </div>
     </div>
   )
 }

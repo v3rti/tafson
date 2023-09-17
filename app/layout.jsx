@@ -11,13 +11,16 @@ import Musicbar from '@components/Musicbar';
 
 export default function RootLayout({children}){
 
+  // <NavbarIn />
+  //       {children}
+  //       <Musicbar />
+
   return (
     <AuthProvider>
     <html lang="en">
-      <body className="h-screen">
-        <NavbarIn />
+      <body className=" bg-primary-green flex justify-center items-center h-full">
         {children}
-        <Musicbar />
+        
         {/* <Footer /> */}
       </body>
     </html>
