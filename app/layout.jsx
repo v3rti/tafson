@@ -18,12 +18,12 @@ export default function RootLayout({children}){
   return (
     <AuthProvider>
     <html lang="en">
-      <body className="h-screen">
-        <NavbarIn />
-        {children}
-        <Musicbar />
-        {/* <Footer /> */}
-      </body>
+    <body className=" bg-primary-green flex justify-center items-center h-full">
+        <NavbarIn />	
+        {children}	        {children}
+        <Musicbar />	
+        {/* <Footer /> */}	        {/* <Footer /> */}
+      </body>	
     </html>
     </AuthProvider>
   )
